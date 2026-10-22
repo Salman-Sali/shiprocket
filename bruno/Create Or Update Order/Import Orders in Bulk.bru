@@ -1,0 +1,19 @@
+meta {
+  name: Import Orders in Bulk
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/import
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file()
+}
+
+docs {
+  Use this API to import orders in bulk to your Shiprocket account from an existing '.csv' file. The imported orders are automatically added to your panel.
+}

@@ -1,0 +1,35 @@
+meta {
+  name: Get Tracking Data for Multiple AWBS
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/external/courier/track/awbs
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "awbs": ["",""]
+  }
+}
+
+docs {
+  Get the tracking details of multiple shipments by entering their AWB codes together as an array.
+
+  The response is displayed in JSON format.
+
+  **Notes:**
+
+  - Data must be passed as a string array.
+
+  - Maximum of 50 AWB codes is supported at a time.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `awbs` | YES | _string_ | The AWB codes of the shipments. Must be passed as an array. | ["788830567028","788829354408"] |
+}

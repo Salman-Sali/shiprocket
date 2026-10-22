@@ -1,0 +1,27 @@
+meta {
+  name: Cancel an Order
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/cancel
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "ids": []
+  }
+}
+
+docs {
+  Use this API to cancel a created order. Multiple order_ids can be passed together as an array to cancel them simultaneously.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `ids` | YES | _integer_ | The Shiprocket order id/ids of the orders that need to be canceled. | 16178831 |
+}

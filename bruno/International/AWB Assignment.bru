@@ -1,0 +1,30 @@
+meta {
+  name: AWB Assignment
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/v1/external/international/courier/assign/awb
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "shipment_id": 160169474,
+      "courier_id": 332,
+      "status": "reassign"
+  }
+}
+
+docs {
+  This API can be used to assign the AWB (Air Waybill Number) to your shipment. The AWB is a unique number that helps you track the shipment and get details about it.
+
+  | PARAMS | REQUIRED | DATA TYPE | DESCRIPTION | EXAMPLE |
+  |---|---|---|---|---|
+  | shipment_id | yes | integer | The shipment id of the order you want to create the AWB for. | 1603434 |
+  | courier_id | no | integer | The courier id of the courier service you want to select. The default courier is selected in case no id is specified. | 35 |
+  | status | no | string | Use this to change the courier of a shipment. Value: reassign. Note that this can be done only once in 24 hours. | reassign |
+  |  |  |  |  |  |
+}

@@ -1,0 +1,47 @@
+meta {
+  name: Update Customer Delivery Address
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/address/update
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "order_id": "",
+    "shipping_customer_name": "",
+    "shipping_phone": "",
+    "shipping_address": "",
+    "shipping_address_2": "",
+    "shipping_city": "",
+    "shipping_state": "",
+    "shipping_country": "",
+    "shipping_pincode": "",
+    "shipping_email": "",
+    "billing_alternate_phone": ""
+  }
+}
+
+docs {
+  You can update the customer's name and delivery address through this API by passing the Shiprocket order id and the necessary customer details.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_id` | YES | _integer_ | The Shiprocket order_id specified to the order. | 16178831 |
+  | `shipping_customer_name` | YES | _string_ | The name of the customer. | John Doe |
+  | `shipping_phone` | YES | _integer_ | Phone number of the customer. | 9988998899 |
+  | `shipping_address` | YES | _string_ | Primary address of the customer. | House no 123 |
+  | `shipping_address_2` | NO | _string_ | Further address details of the customer. | Beside CM house |
+  | `shipping_city` | YES | _string_ | Shipping city name. | Pune |
+  | `shipping_state` | YES | _string_ | Shipping state name. | Maharashtra |
+  | `shipping_country` | YES | _string_ | Shipping country name. | India |
+  | `shipping_pincode` | YES | _integer_ | Shipping address pincode. | 120023 |
+  | `shipping_email` | NO | _string_ | Customer's email address. | [john@doe.com](mailto:john@doe.com) |
+  | `billing_alternate_phone` | NO | _string_ | The customer alternate phone. | 8604690454 |
+}

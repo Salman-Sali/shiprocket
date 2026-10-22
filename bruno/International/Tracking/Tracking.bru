@@ -1,0 +1,15 @@
+meta {
+  name: Tracking
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/v1/external/international/orders/track
+  body: none
+  auth: inherit
+}
+
+docs {
+  Get the tracking details of your shipments. No other body parameters are required to access this API.
+}

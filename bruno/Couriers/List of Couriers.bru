@@ -1,0 +1,28 @@
+meta {
+  name: List of Couriers
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/external/courier/courierListWithCounts
+  body: none
+  auth: inherit
+}
+
+docs {
+  Use this API to check the list of couriers and the related information with Shiprocket based on the search criteria.
+  **Note:**
+
+  - This API will work on a company level.
+
+  - You can use filters to sort your data. By default, all the couriers are shown if no filter is used.
+
+  - total_courier_count will change based on the filter used.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `type` | NO | _string_ | Use this as a parameter. Possible values are : active/inactive/all | [https://apiv2.shiprocket.in/v1/external/courier/courierListWithCounts?type=active](https://apiv2.shiprocket.in/v1/external/courier/courierListWithCounts?type=active') |
+}

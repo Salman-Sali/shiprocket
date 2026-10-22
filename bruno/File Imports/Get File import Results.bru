@@ -1,0 +1,28 @@
+meta {
+  name: Get File import Results
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/errors/:import_id/check
+  body: none
+  auth: inherit
+}
+
+params:path {
+  import_id: 
+}
+
+docs {
+  Check the import response of various file imports for any error, including bulk order imports, products and product listings.
+
+  You will have to pass the file import id as a path parameter in the endpoint URL. This id is provided at the time of importing the file.
+  No other body parameters are required. 
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/errors/20212061/check](https://apiv2.shiprocket.in/v1/external/errors/20212061/check) |
+}

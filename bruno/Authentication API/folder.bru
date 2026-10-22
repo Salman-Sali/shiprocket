@@ -1,0 +1,26 @@
+meta {
+  name: Authentication API
+  seq: 1
+}
+
+docs {
+  The authentication token is an alphanumeric code, unique to your Shiprocket account, can be used from any system to validate your API calls to access Shiprocket's resources. Shiprocket API uses [JWT](https://jwt.io/introduction/) tokens for validation.
+
+  Use this API to validate your API user and obtain the authentication token. Copy this token and use it further to validate your API calls. **The validity of this token is 10 days**.
+
+  Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret token in publicly accessible areas such as GitHub, client-side code, and so forth.
+
+  **Steps To Use Token:**
+
+  1. 
+
+  Copy the token received in response.
+
+  2. 
+
+  Include _**'Authorization: Bearer [yourtokenvalue]'**_ in the appropriate field of your code.
+
+  3. 
+
+  That's all! In case of any error, try checking your parameters.
+}

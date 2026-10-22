@@ -1,0 +1,41 @@
+meta {
+  name: Map Unmapped Products
+  type: http
+  seq: 8
+}
+
+patch {
+  url: {{baseUrl}}/v1/external/orders/mapping
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "order_id": "",
+        "order_product_id": "",
+        "master_sku": ""
+      }
+    ]
+  }
+}
+
+docs {
+  This API maps your unmapped inventory products. 
+
+  **Note:**
+
+  - Products must be unmapped to run this API successfully.
+
+  - Inventory sync must be turned on to use this API.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_id` | YES | _integer_ | The Shiprocket order_id specified to the order. | 16167171 |
+  | `order_product_id` | YES | _integer_ | The product id of the product to be mapped. | 17171717 |
+  | `master_sku` | YES | _string_ | The sku id of the product. In the case of a single integrated channel, master sku is the same as channel_sku; Otherwise, it can be found using the 'Get All Products' API. | chakra123 |
+}

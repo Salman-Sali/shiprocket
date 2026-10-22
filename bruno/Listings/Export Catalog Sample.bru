@@ -1,0 +1,17 @@
+meta {
+  name: Export Catalog Sample
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/v1/external/listings/sample
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API displays the download link of a sample catalogue sheet for reference purposes.
+
+  No additional parameters are required.
+}

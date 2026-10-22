@@ -1,0 +1,22 @@
+meta {
+  name: Get Details of Specific Shipment
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/external/shipments
+  body: none
+  auth: inherit
+}
+
+docs {
+  Get the details of a specific Shipment by passing the value of shipment_id in the endpoint URL.
+  No other body parameters are required.
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/shipments/16016920](https://apiv2.shiprocket.in/v1/external/shipments/16016920) |
+}

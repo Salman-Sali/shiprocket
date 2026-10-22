@@ -1,0 +1,40 @@
+meta {
+  name: Check Courier Serviceability
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/external/courier/serviceability/
+  body: none
+  auth: inherit
+}
+
+docs {
+  Use this API to check the availability of couriers between the pickup and delivery postal codes.
+  Further details like the estimated time of delivery, the rates along with the ids are also shown.
+
+  **Note:**
+
+  - 
+
+  One of either the 'order_id' or 'cod' and 'weight' is required. If you specify the order id, the cod and weight fields are not required and vice versa.
+
+  - 
+
+  You can add further fields to add the shipment details and filter the search.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `pickup_postcode` | YES | _integer_ | Postcode from where the order will be picked. | 110030 |
+  | `delivery_postcode` | YES | _integer_ | Postcode where the order will be delivered | 122002 |
+  | `order_id` | NO | _integer_ | If order id is already created in Shiprocket panel then you can use this shiprocket order id in servicibility | 123456 |
+  | `cod` | CONDITIONAL YES | _boolean_ | 1 for Cash on Delivery and 0 for Prepaid orders. | 1 |
+  | `is_new_hyperlocal` | YES | _boolean_ | 1 in case of hyper-local shipments | 1 |
+  | `lat_from` | YES | _float_ | Pickup Latitude. Mandatory in case of Hyper local shipments | 28.509223937988 |
+  | `long_from` | YES | _float_ | Pickup Longitude. Mandatory in case of Hyper local shipments | 77.067848205566 |
+  | `lat_to` | YES | _float_ | Delivery Latitude. Mandatory in case of Hyper local shipments | 28.50724220275879 |
+  | `long_to` | YES | _float_ | Delivery Longitude. Mandatory in case of Hyper local shipments | 77.06745147705078 |
+}

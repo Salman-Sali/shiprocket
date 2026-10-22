@@ -1,0 +1,27 @@
+meta {
+  name: Get Specific Product Details
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/external/products/show/:product_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  product_id: 
+}
+
+docs {
+  Use this API to get the details of a specific product. The product details will be displayed in JSON format.
+
+  You need to pass the product id in the endpoint URL for the successful call of the API. No other body parameters are required.
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/products/show/17484610](https://apiv2.shiprocket.in/v1/external/products/show/17484610) |
+}

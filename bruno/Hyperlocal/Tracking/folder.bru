@@ -1,0 +1,71 @@
+meta {
+  name: Tracking
+  seq: 3
+}
+
+docs {
+  Use these APIs to get the tracking details of your shipments through the AWB code or the Shipment ID.
+
+  ##### Shipment Status Codes:
+
+  | **STATUS CODE** | **DESCRIPTION** |
+  |---|---|
+  | 6 | Shipped |
+  | 7 | Delivered |
+  | 8 | Canceled |
+  | 9 | RTO Initiated |
+  | 10 | RTO Delivered |
+  | 12 | Lost |
+  | 13 | Pickup Error |
+  | 14 | RTO Acknowledged |
+  | 15 | Pickup Rescheduled |
+  | 16 | Cancellation Requested |
+  | 17 | Out For Delivery |
+  | 18 | In Transit |
+  | 19 | Out For Pickup |
+  | 20 | Pickup Exception |
+  | 21 | Undelivered |
+  | 22 | Delayed |
+  | 23 | Partial_Delivered |
+  | 24 | DESTROYED |
+  | 25 | DAMAGED |
+  | 26 | FULFILLED |
+  | 27 | Pickup Booked |
+  | 38 | REACHED AT DESTINATION HUB |
+  | 39 | MISROUTED |
+  | 40 | RTO_NDR |
+  | 41 | RTO_OFD |
+  | 42 | PICKED UP |
+  | 43 | SELF FULFILLED |
+  | 44 | DISPOSED OFF |
+  | 45 | CANCELLED_BEFORE_DISPATCHED |
+  | 46 | RTO IN INTRANSIT |
+  | 47 | QC FAILED |
+  | 48 | Reached Warehouse |
+  | 49 | Custom Cleared |
+  | 50 | In Flight |
+  | 51 | Handover to Courier |
+  | 52 | Shipment Booked |
+  | 54 | In Transit Overseas |
+  | 55 | Connection Aligned |
+  | 56 | Reached Overseas Warehouse |
+  | 57 | Custom Cleared Overseas |
+  | 59 | Box Packing |
+  | 68 | PROCESSED AT WAREHOUSE |
+  | 60 | FC Allocated |
+  | 61 | Picklist Generated |
+  | 62 | Ready To Pack |
+  | 63 | Packed |
+  | 67 | FC MANIFEST GENERATED |
+  | 71 | HANDOVER EXCEPTION |
+  | 72 | PACKED EXCEPTION |
+  | 75 | RTO_LOCK |
+  | 76 | UNTRACEABLE |
+  | 77 | ISSUE_RELATED_TO_THE_RECIPIENT |
+  | 78 | REACHED_BACK_AT_SELLER_CITY |
+  | 79 | RIDER ASSIGNED |
+  | 80 | RIDER UNASSIGNED |
+  | 81 | RIDER ASSIGNED |
+  | 82 | RIDER REACHED AT DROP |
+  | 83 | SEARCHING_FOR_RIDER |
+}

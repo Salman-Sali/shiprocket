@@ -1,0 +1,40 @@
+meta {
+  name: Action NDR
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/external/ndr/:awb/action
+  body: json
+  auth: inherit
+}
+
+params:path {
+  awb: 
+}
+
+body:json {
+  {
+     "action": "",
+     "comments": ""
+  }
+}
+
+docs {
+  This API will let you take actions like Reattempt and RTO on the shipments that are in NDR.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `action` | YES | _string_ | The action needs to be specified | ‘fake-attempt’ or ‘re-attempt’ or 'return' |
+  | `comments` | YES | _string_ | Any comment can be mentioned | The Byer does not want the product |
+  | `phone` | NO | _string_ | The phone number will be updated at the time of re-attempt and fake-attempt | 9999988888 |
+  | `proof_audio` | CONDITIONAL YES | _string_ | URL of the audio which will be updated at the time of the fake attempt | [https://s3-ap-southeast-1.amazonaws.com/kr-multichannel/imports/ndr/1655100133_file_example_MP3_700KB.mp3](https://s3-ap-southeast-1.amazonaws.com/kr-multichannel/imports/ndr/1655100133_file_example_MP3_700KB.mp3) |
+  | `proof_image` | CONDITIONAL YES | _string_ | URL of the image which will be updated at the time of the fake attempt | [https://s3-ap-southeast-1.amazonaws.com/kr-multichannel/imports/ndr/img_7687678678.jpg](https://s3-ap-southeast-1.amazonaws.com/kr-multichannel/imports/ndr/img_7687678678.jpg) |
+  | `remarks` | CONDITIONAL YES | _string_ | Remarks will be updated at the time of a fake attempt | Delivery Requested |
+  | `address1` | NO | _string_ | address1 will be updated at the time of re-attempt and fake-attempt | U-56, sector-23, Noida, India |
+  | `address2` | NO | _string_ | addres2 will be updated at the time of re-attempt and fake-attempt | U-56, sector-23, Noida, India |
+  | `deferred_date` | NO | _date(string)_ | Deferred date will be updated as preferred_date at the time of fake-attempt and re-attempt | 2022-08-10 |
+}

@@ -1,0 +1,36 @@
+meta {
+  name: Map Channel Product
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/external/listings/link
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "product_id": "",
+    "listing_id": "",
+    "ID": ""
+
+
+
+  }
+}
+
+docs {
+  Use this API to map a product present in the channel catalogue to a product present in the master catalogue.
+
+  Pass the product and listing id for the successful call of the API
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `product_id` | YES | _integer_ | The id of item in the master catalog. | 17908342 |
+  | `listing_id` | YES | _integer_ | The id of the product in the channel catalog. | 15897064 |
+  | `ID` | NO | _integer_ | The id placed in the respective 'GET' codes. | 15897064 |
+}

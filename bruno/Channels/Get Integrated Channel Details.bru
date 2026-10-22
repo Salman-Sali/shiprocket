@@ -1,0 +1,17 @@
+meta {
+  name: Get Integrated Channel Details
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/channels
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API shows a list of all the channels that have already been integrated with your Shiprocket account.
+
+  No parameters are required to access this API.
+}

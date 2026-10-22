@@ -1,0 +1,53 @@
+meta {
+  name: Add a New Pickup Location
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/external/settings/company/addpickup
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "pickup_location": "",
+    "name": "",
+    "email": "",
+    "phone": "",
+    "address": "",
+    "address_2": "",
+    "city": "",
+    "state":"",
+    "country": "",
+    "pin_code": ""
+
+  }
+}
+
+docs {
+  This API can be used to add a new pickup location to your account.
+  Pass the minimum required parameters to add the location.
+  Further details to the address can be added if required.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `pickup_location` | YES | _string_ | The nickname of the new pickup location. Max 36 characters. | Home |
+  | `name` | YES | _string_ | The shipper's name. | Deadpool |
+  | `email` | YES | _string_ | The shipper's email address. | [deadpool@chimichanga.com](https://mailto:deadpool@chimichanga.com) |
+  | `phone` | YES | _integer_ | Shipper's phone number. | 9777777779 |
+  | `address` | YES | _string_ | Shipper's primary address. Max 80 characters. | Mutant Facility, Sector 3 |
+  | `address_2` | NO | _string_ | Additional address details. | House number 34 |
+  | `city` | YES | _string_ | Pickup location city name. | Pune |
+  | `state` | YES | _string_ | Pickup location state name. | Maharashtra |
+  | `country` | YES | _string_ | Pickup location country. | India |
+  | `pin_code` | YES | _integer_ | Pickup location pincode. | 110022 |
+  | `lat` | YES | _float_ | Pickup location Latitude. | 22.4064 |
+  | `long` | YES | _float_ | Pickup location Longitude. | 69.0747 |
+  | `address_type` | NO | _string_ | To be given if address of different vendor is to be provided with pickup address | vendor |
+  | `vendor_name` | NO | _string_ | Name of vendor if address_type is vendor | John |
+  | `gstin` | NO | _string_ | gstin of vendor | 09XXXCH7409R1XXX |
+}

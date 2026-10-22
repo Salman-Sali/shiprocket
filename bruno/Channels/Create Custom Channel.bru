@@ -1,0 +1,43 @@
+meta {
+  name: Create Custom Channel
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/external/channels
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "name": "MANUAL-25149",
+      "brand_name": "SIORA-12"
+  }
+}
+
+docs {
+  Creates a new manual (custom) channel in the seller's Shiprocket account.
+
+  **Pre-condition:** This endpoint is gated. Your account must be allow-listed for "Channel Creation by API" by the Shiprocket Tech Support / KAM team before it will work.
+
+  #### Request body
+
+  | Field | Type | Required | Description |
+  |---|---|---|---|
+  | name | string | Yes | Channel display name. Max 12 characters. Unique within your account. |
+  | brand_name | string | No | Brand label on invoices and shipping labels. Max 50 characters. |
+
+  #### Error responses
+
+  - **401 Unauthorized** — Missing or invalid bearer token.
+
+  - **403 Forbidden** — "Channel Creation by API" flag is not enabled for your account, or channel limit reached.
+
+  - **422 Unprocessable Entity** — Validation failure (name missing, name > 12 chars, name already exists, or brand_name > 50 chars).
+
+  #### Notes
+
+  - Default order-status mapping is applied automatically (matches the canonical mapping used when you create a manual channel from the Shiprocket dashboard).
+}

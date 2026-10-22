@@ -1,0 +1,34 @@
+meta {
+  name: Generate Label
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/external/courier/generate/label
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "shipment_id": []
+  }
+}
+
+docs {
+  Generate the label of order by passing the shipment id in the form of an array.
+  This API displays the URL of the generated label.
+
+  **Note:**
+
+  - The AWB must be assigned to the shipment to generate the label.
+
+  - 'shipment_id' must be passed as an array.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `shipment_id` | YES | _integer_ | The shipment id of the order whose label is to be generated. Multiple ids can be passed together as an array. | [16104408,16104409] |
+}

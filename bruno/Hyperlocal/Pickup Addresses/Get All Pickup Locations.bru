@@ -1,0 +1,17 @@
+meta {
+  name: Get All Pickup Locations
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/settings/company/pickup
+  body: none
+  auth: inherit
+}
+
+docs {
+  Get a list of all pickup locations that have been added to your Shiprocket account through this API.
+
+  No parameters are required to use this API.
+}

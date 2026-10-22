@@ -1,0 +1,33 @@
+meta {
+  name: Print Manifest
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/external/manifests/print
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "order_ids": []
+  }
+}
+
+docs {
+  Use this API to print the generated manifest of orders at an individual level.
+
+  **Note**
+
+  - Manifest needs to be generated first for this API to print it. Use the 'Generate Manifest' API to do the same.
+
+  - Multiple order ids can be passed together.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_ids` | YES | _integer_ | The Shiprocket order id of whose manifest is to be generated. Multiple ids can be passed together as an array. | [16090109] |
+}

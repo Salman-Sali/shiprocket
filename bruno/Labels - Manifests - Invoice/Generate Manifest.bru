@@ -1,0 +1,34 @@
+meta {
+  name: Generate Manifest
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/v1/external/manifests/generate
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "shipment_id": []
+  }
+}
+
+docs {
+  Using this API, you can generate the manifest for your order.
+  This API generates the manifest and displays the download URL of the same.
+
+  **Note:**
+
+  - Multiple ids can also be passed as an array for bulk generation of manifests.
+
+  - AWB must be assigned and pickup requested on the shipment id to generate manifest.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `shipment_id` | YES | _integer_ | The shipment id of the order. Multiple ids can be passed as an array, separated by commas. | [16090109] |
+}

@@ -1,0 +1,162 @@
+meta {
+  name: Create Custom Order
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/create/adhoc
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "order_id": "",
+      "order_date": "",
+      "pickup_location": "",
+      "comment": "",
+      "reseller_name": "",
+      "company_name": "",
+      "billing_customer_name": "",
+      "billing_last_name": "",
+      "billing_address": "",
+      "billing_address_2": "",
+      "billing_isd_code": "",
+      "billing_city": "",
+      "billing_pincode": "",
+      "billing_state": "",
+      "billing_country": "",
+      "billing_email": "",
+      "billing_phone": "",
+      "billing_alternate_phone":"",
+      "shipping_is_billing": "",
+      "shipping_customer_name": "",
+      "shipping_last_name": "",
+      "shipping_address": "",
+      "shipping_address_2": "",
+      "shipping_city": "",
+      "shipping_pincode": "",
+      "shipping_country": "",
+      "shipping_state": "",
+      "shipping_email": "",
+      "shipping_phone": "",
+      "order_items": [
+          {
+              "name": "",
+              "sku": "",
+              "units": "",
+              "selling_price": "",
+              "discount": "",
+              "tax": "",
+              "hsn": ""
+          }
+      ],
+      "payment_method": "",
+      "shipping_charges": "",
+      "giftwrap_charges": "",
+      "transaction_charges": "",
+      "total_discount": "",
+      "sub_total": "",
+      "length": "",
+      "breadth": "",
+      "height": "",
+      "weight": "",
+      "ewaybill_no": "",
+      "customer_gstin": "",
+      "invoice_number":"",
+      "order_type":""
+  }
+}
+
+docs {
+  Use this API to create a quick custom order. Quick orders are the ones where we do not store the product details in the master catalogue.
+
+  You have to pass all the required params at the minimum to create a quick custom order. You can add additional parameters as per your preference.
+
+  **Note:**
+
+  - In case the 'shipping_is_billing' field is false, further shipping detail fields are required.
+
+  If no channel id is passed, the order will be assigned to the default custom channel. If the channel id is not known, use the 'Get All Channels' API to get the list of all integrated channels in your Shiprocket account.
+
+  - 
+
+  order_id field cannot be equal to an already existing id. Doing so does not change or affect the existing order.
+
+  - 
+
+  New orders cannot be created with order id's same as that of cancelled orders. If error 422 shows up despite filling in the correct details, consider changing the order_id.
+
+  - 
+
+  Be sure to input the correct calculated sub_total amount. The total is not calculated automatically through the API.
+
+  - 
+
+  The 'order_id' returned in the response is the Shiprocket order_id. Please save this order ID as we will use this in future API calls.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_id` | YES | _string_ | The order id you want to specify to the order. Max char: 50. (Avoid passing character values as this contradicts some other API calls). | 224477 or 224-477 |
+  | `order_date` | YES | _string_ | The date of order creation in yyyy-mm-dd format. Time is additional. | 2019-07-24 11:11 |
+  | `pickup_location` | YES | _string_ | The name of the pickup location added in your Shiprocket account. This cannot be a new location. | Jammu |
+  | `channel_id` | NO | _integer_ | Mention this in case you need to assign the order to a particular channel. Default is 'Custom'. | 27022 |
+  | `comment` | NO | _string_ | Option to add 'From' field to the shipment. To do this, enter the name in the following format: 'Reseller: [name]'. | Reseller: Divine |
+  | `reseller_name` | NO | _string_ | The 'from' name if you want to print. Use 'Reseller: [name]' | Reseller: Divine |
+  | `company_name` | NO | _string_ | Name of the company. | Amazon |
+  | `billing_customer_name` | YES | _string_ | First name of the billed customer. | John |
+  | `billing_last_name` | NO | _string_ | Last name of the billed customer. | Doe |
+  | `billing_address` | YES | _string_ | address details of the billed customer. | Civil line, House 20 |
+  | `billing_address_2` | NO | _string_ | Further address details of the billed customer. | Near Hokage House |
+  | `billing_city` | YES | _string_ | Billing address city. Max char: 30. | New Delhi |
+  | `billing_pincode` | YES | _integer_ | Pincode of the billing address. | 110002 |
+  | `billing_state` | YES | _string_ | Billing address state. | Delhi |
+  | `billing_country` | YES | _string_ | Billing address country. | India |
+  | `billing_email` | YES | _string_ | Email address of the billed customer. | [John@doe.com](https://mailto:John@doe.com) |
+  | `billing_phone` | YES | _integer_ | The phone number of the billing customer. | 9856321472 |
+  | `billing_alternate_phone` | NO | _integer_ | Alternate phone number of the billing customer. | 8604690454 |
+  | `shipping_is_billing` | YES | _boolean_ | Whether the shipping address is the same as billing address. 1 or 'true' for yes and 0 or 'false' for no. | true |
+  | `shipping_customer_name` | CONDITIONAL YES | _string_ | Name of the customer the order is shipped to. Required in case billing is not same as shipping. | Jane |
+  | `shipping_last_name` | NO | _string_ | Last name of the shipping customer. | Doe |
+  | `shipping_address` | CONDITIONAL YES | _string_ | Address of the Shipping customer. Required in case billing is not same as shipping. | Lane number 69 |
+  | `shipping_address_2` | NO | _string_ | Further address details of shipping customer. | Andheri |
+  | `billing_isd_code` | NO | _string_ | ISD code of the billing address. | +91 |
+  | `shipping_city` | CONDITIONAL YES | _string_ | Shipping address city. | Mumbai |
+  | `shipping_pincode` | CONDITIONAL YES | _integer_ | Shipping address pincode. | 200912 |
+  | `shipping_country` | CONDITIONAL YES | _string_ | Shipping address country. | India |
+  | `shipping_state` | CONDITIONAL YES | _string_ | Shipping address state. | Maharashtra |
+  | `shipping_email` | NO | _string_ | Email of the shipping customer. | [Jane@doe.com](https://mailto:Jane@doe.com) |
+  | `shipping_phone` | CONDITIONAL YES | _integer_ | Phone no. of the shipping customer. |  |
+  | `longitude` | NO | _float_ | Destination (Shipping address) Longitude. | 69.0747 |
+  | `latitude` | NO | _float_ | Destination (Shipping address) Latitude | 22.4064 |
+  | `order_items` | YES | / | List of items and their relevant fields in the form of Array. | / |
+  | `name` | YES | _string_ | Name of the product. | Jeans |
+  | `sku` | YES | _string_ | The sku id of the product. | cbs123 |
+  | `units` | YES | _integer_ | No of units that are to be shipped. | 10 |
+  | `selling_price` | YES | _integer_ | The selling price per unit in Rupee. Inclusive of GST. | 900 |
+  | `discount` | NO | _integer_ | The discount amount in Rupee. Inclusive of tax. | 10 |
+  | `tax` | NO | _integer_ | The tax percentage on the item. | 5 |
+  | `hsn` | NO | _integer_ | Harmonised System Nomenclature code. Used to determine the category of taxation the goods fall under. | 44122 |
+  | `payment_method` | YES | _string_ | The method of payment. Can be either COD (Cash on delivery) Or Prepaid. | COD |
+  | `shipping_charges` | NO | _integer_ | Shipping charges if any in Rupee. | 5 |
+  | `giftwrap_charges` | NO | _integer_ | Giftwrap charges if any in Rupee. | 5 |
+  | `transaction_charges` | NO | _integer_ | Transaction charges if any in Rupee. | 5 |
+  | `total_discount` | NO | _integer_ | The total discount amount in Rupee. | 15 |
+  | `sub_total` | YES | _integer_ | Calculated sub total amount in Rupee after deductions. | 9010 |
+  | `length` | YES | _float_ | The length of the item in cms. Must be more than 0.5. | 10 |
+  | `breadth` | YES | _float_ | The breadth of the item in cms. Must be more than 0.5. | 10 |
+  | `height` | YES | _float_ | The height of the item in cms. Must be more than 0.5. | 10 |
+  | `weight` | YES | _float_ | The weight of the item in kgs. Must be more than 0. | 2.5 |
+  | `customer_gstin` | NO | _string_ | Goods and Services Tax Identification Number. | 29ABCDE1234F2Z5 |
+  | `invoice_number` | NO | _string_ |  |  |
+  | `order_type` | NO | _string_ | Key to differentiate between Essentials or Non Essentials Shipments. Order type can only be ESSENTIALS or NON ESSENTIALS. Please note it is case sensitive and blank values are allowed. | ESSENTIALS |
+  | `checkout_shipping_method` | NO | _string_ | Only for SRF users. | a. SR_RUSH: SDD, NDD b. SR_STANDARD: Surface Delivery c. SR_EXPRESS: Air Delivery d. SR_QUICK: 3 hrs delivery |
+  | `what3words_address` | NO | _string_ | What3words is a proprietary geocode system designed to identify any location on the surface of Earth with a resolution of about 3 meters. The system encodes geographic coordinates into three permanently fixed dictionary words. | toddler.geologist.animated |
+  | `is_insurance_opt` | NO | _boolean_ | To secure shipments above the order value of Rs 2500 | true |
+  | `is_document` | NO | _integer_ | To create a document order | 1 or 0 |
+  | `order_tag` | NO | _string_ | To add tags to your orders | abc, xyz |
+  | `reseller_name` | NO | _string_ | To display the vendor name on the label | brandname |
+}

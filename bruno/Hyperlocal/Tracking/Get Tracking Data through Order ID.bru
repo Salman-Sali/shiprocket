@@ -1,0 +1,36 @@
+meta {
+  name: Get Tracking Data through Order ID
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/v1/external/courier/track?order_id=123&channel_id=12345
+  body: none
+  auth: inherit
+}
+
+params:query {
+  order_id: 123
+  channel_id: 12345
+}
+
+docs {
+  Get the tracking details of your shipment by entering the Order ID of the same in the endpoint URL itself.
+  If you have the same order ID in more than one channel, then use the param channel_id.
+
+  The response is displayed in JSON format.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_id` | YES | _string_ | The order ID/number of your store. | NO-123 |
+  | `channel_id` | NO | _integer_ | Channel ID corresponding to the store | 12345 |
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/courier/track?order_id=123&channel_id=12345](https://apiv2.shiprocket.in/v1/external/courier/track?order_id=123&channel_id=12345) |
+}

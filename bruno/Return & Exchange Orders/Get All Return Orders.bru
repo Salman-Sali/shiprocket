@@ -1,0 +1,26 @@
+meta {
+  name: Get All Return Orders
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/v1/external/orders/processing/return
+  body: none
+  auth: inherit
+}
+
+docs {
+  Using this API, you can get a list of all created return orders in your Shiprocket account, along with their details.
+
+  No parameters are required to use the API. However, further parameters can be defined to sort and filter the data.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `page` | NO | _integer_ | The page number to display. | 1 |
+  | `per_page` | NO | _integer_ | The number of orders per page. | 2 |
+  | `to` | NO | _string_ | Ending date of search. | 2019-08-04 |
+  | `from` | NO | _string_ | Starting date of search. | 2019-08-05 |
+}

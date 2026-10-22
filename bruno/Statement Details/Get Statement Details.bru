@@ -1,0 +1,25 @@
+meta {
+  name: Get Statement Details
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/account/details/statement
+  body: none
+  auth: inherit
+}
+
+docs {
+  Use this API to get the account statement details of your Shiprocket account.
+  No parameters are required to access this API. However, you sort and filter the data displayed using the optional parameters.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | ` page` | NO | _integer_ | The page number you want to display. | 5 |
+  | `per_page` | NO | _integer_ | The number of orders to get per request. | 2 |
+  | `from` | NO | _string_ | From a specific date. | 2017-08-12 |
+  | `to` | NO | _string_ | To a specific date. | 2017-09-12 |
+}

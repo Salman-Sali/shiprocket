@@ -1,0 +1,28 @@
+meta {
+  name: Get All Listings
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/listings
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API can be used to get a JSON representation of all the product listings in your Shiprocket account, i.e., all the products associated with a specific channel.
+
+  No parameters are required to access this API. However, the displayed data can be filtered and sorted using further parameters. If no sort parameter is used, the data is displayed in the default format.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `page` | NO | _integer_ | The page number you want to display. | 5 |
+  | `per_page` | NO | _integer_ | The number of listings to get per page. | 2 |
+  | `sort` | NO | _string_ | The order to sort by. _Value_: **ASC** or **DESC** | ASC |
+  | `sort_by` | NO | _string_ | Allows you to choose the value field by which the listings will be sorted. Could be sorted by id, by sku, time created etc. | sku |
+  | `filter` | NO | _string_ | The data to be matched for the filter value. | 11223344 |
+  | `filter_by` | NO | _string_ | The filter value field . Can be id, sku, etc. | id |
+}

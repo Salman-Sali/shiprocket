@@ -1,0 +1,35 @@
+meta {
+  name: Generate Invoice
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/print/invoice
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "ids": []
+
+  }
+}
+
+docs {
+  Use this API to generate the invoice for your order by passing the respective Shiprocket order ids.
+
+  The generated invoice URL is displayed as a response.
+  Multiple ids can be passed together as an array.
+
+  **Note**
+
+  - Order ids must be passed as an array.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `ids` | YES | _integer_ | The Shiprocket order id of the orders whose invoices are to be created. Multiple ids can be passed together as an array. | [16255275,16255276] |
+}

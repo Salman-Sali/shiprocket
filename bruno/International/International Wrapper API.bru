@@ -1,0 +1,82 @@
+meta {
+  name: International Wrapper API
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/v1/external/international/shipments/create/forward-shipment
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "order_id": "320988727",
+      "order_date": "2022-05-08 12:23",
+      "channel_id": "",
+      "billing_customer_name": "Jax",
+      "billing_last_name": "Tank",
+      "billing_address": "Dust2",
+      "billing_city": "New Delhi",
+      "billing_pincode": "442001",
+      "billing_state": "Delhi",
+      "billing_country": "India",
+      "billing_email": "jax@counterstike.com",
+      "billing_phone": "9988998899",
+      "shipping_is_billing": false,
+      "shipping_customer_name": "Elena ",
+      "shipping_last_name": "",
+      "shipping_address": "Plot 1, Panchkula, Haryana 134113, India",
+      "shipping_address_2": "",
+      "shipping_city": "UPTON",
+      "order_type": 1,
+      "shipping_country": "United States",
+      "shipping_pincode": "11973",
+      "shipping_state": "New York",
+      "shipping_email": "test.test@shiprocket.com",
+      "product_category": "",
+      "shipping_phone": 9760853722,
+      "order_items": [
+          {
+              "name": "Delta",
+              "sku": "delta123",
+              "units": 10,
+              "selling_price": "1000",
+              "hsn": "24567870"
+          }
+      ],
+      "payment_method": "PREPAID",
+      "sub_total": 40,
+      "length": 10,
+      "breadth": 10,
+      "height": 10,
+      "weight": 0.7,
+      "pickup_location": "rtryttest",
+      "vendor_details": {
+          "email": "mayur.p@iksula.com",
+          "phone": 9879879879,
+          "name": "Coco Cookie",
+          "address": "F2004 Street  Street 1 Street ",
+          "address_2": "",
+          "city": "delhi",
+          "state": "new delhi",
+          "country": "india",
+          "pin_code": "442001",
+          "pickup_location": "rtryttest"
+      },
+      "purpose_of_shipment": 0,
+      "currency": "INR",
+      "igstPaymentStatus": "A",
+      "Terms_Of_Invoice": "FOB",
+      "igst_amount": 10,
+      "ioss": "IM1234567890",
+      "pickup_location_id": 647
+  }
+}
+
+docs {
+  Use this API to do multiple tasks in one go, namely creating a quick order, requesting its shipment, pickup generation generating the label and the manifest for the same order.
+
+  This API integrates several other APIs to perform all these tasks together.
+}

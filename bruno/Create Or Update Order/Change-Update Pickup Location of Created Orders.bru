@@ -1,0 +1,37 @@
+meta {
+  name: Change/Update Pickup Location of Created Orders
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{baseUrl}}/v1/external/orders/address/pickup
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "order_id": [],
+    "pickup_location": ""
+  }
+}
+
+docs {
+  Using this API, you can modify the pickup location of an already created order. Multiple order ids can be passed to update their pickup location together.
+
+  **Note:**
+
+  - Pickup location can only be changed/updated to an already existing pickup location in your account. 
+
+  - The 'order_id' to be passed is the Shiprocket order_id received at the time of order creation.
+
+  - Multiple order ids can be passed as an array, separated by commas. eg: ["141414,142424,143434"]
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_id` | YES | _integer_ | The Shiprocket order_id specified to the order. | 16167171 |
+  | `pickup_location` | YES | _string_ | The pickup location you want to change your current pickup location to. | Delhi |
+}

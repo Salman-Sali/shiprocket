@@ -1,0 +1,19 @@
+meta {
+  name: Token Logout
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/external/auth/logout
+  body: none
+  auth: inherit
+}
+
+script:post-response {
+  bru.setEnvVar("token", "");
+}
+
+docs {
+  [https://apiv2.shiprocket.in/v1/external/auth/logout](https://apiv2.shiprocket.in/v1/external/auth/logout)
+}

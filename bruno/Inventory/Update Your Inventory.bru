@@ -1,0 +1,48 @@
+meta {
+  name: Update Your Inventory
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/v1/external/inventory/:product_id/update
+  body: json
+  auth: inherit
+}
+
+params:path {
+  product_id: 
+}
+
+body:json {
+  {
+    "quantity": "",
+    "action": ""
+  }
+}
+
+docs {
+  This API is used to update your product inventory details.
+
+  First, you need to pass the product_id of the product in the endpoint URL.
+  You can then set the quantity and action you want to perform on the existing inventory of the specified product.
+
+  **Note:**
+
+  - The product_id can be found using the 'Get Inventory Details' API.
+
+  - The id is to be passed in the endpoint URL itself.
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/inventory/17454637/update](https://apiv2.shiprocket.in/v1/external/inventory/17454637/update) |
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `quantity` | YES | _integer_ | The quantity of the product you want. | 2 |
+  | `action` | YES | _integer_ | The action you want to perform. _Value_: - **add** : Adds the specific quantity to the product inventory. - **replace** : Replaces the existing quantity with the specified number. - **remove** : Removes the specific number from the product inventory. | add |
+}

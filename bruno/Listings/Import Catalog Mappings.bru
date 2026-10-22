@@ -1,0 +1,21 @@
+meta {
+  name: Import Catalog Mappings
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/external/listings/import
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file()
+}
+
+docs {
+  Use this API to import a CSV file containing channel catalogue to the master catalogue mappings.
+
+  No other body parameters are required.
+}

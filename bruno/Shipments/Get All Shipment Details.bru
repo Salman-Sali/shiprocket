@@ -1,0 +1,26 @@
+meta {
+  name: Get All Shipment Details
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/shipments
+  body: none
+  auth: inherit
+}
+
+docs {
+  Use this API to get the shipment details of all the shipments in your Shiprocket account.
+
+  The data is displayed in the default format if no filter or sort condition is passed. You can use the filter and sort conditions to streamline your data.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | ` sort` | NO | _string_ | The sort format: ASC or DESC | ASC |
+  | `sort_by` | NO | _string_ | The field to sort by. | id |
+  | `filter` | NO | _string_ | The filter value. | 141121 |
+  | `filter_by` | NO | _string_ | The filed to filter by. | id |
+}

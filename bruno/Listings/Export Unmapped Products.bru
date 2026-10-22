@@ -1,0 +1,18 @@
+meta {
+  name: Export Unmapped Products
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/v1/external/listings/export/unmapped
+  body: none
+  auth: inherit
+}
+
+docs {
+  Get a list of all the unmapped products in your channel catalogue using this API.
+
+  The list is downloaded into a CSV file, and the download URL is displayed as the response.
+  No other body parameters are required.
+}

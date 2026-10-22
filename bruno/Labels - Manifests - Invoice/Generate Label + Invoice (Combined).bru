@@ -1,0 +1,39 @@
+meta {
+  name: Generate Label + Invoice (Combined)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/v1/external/courier/generate/label-invoice
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {"shipment_ids": []}
+}
+
+docs {
+  Generates a single combined PDF containing the shipping label followed by the invoice for each shipment. Output preserves the input order of `shipment_ids`.
+
+  **Note:**
+
+  - 
+
+  `shipment_ids` is mandatory for external requests.
+
+  - 
+
+  Not supported for reseller-enabled accounts.
+
+  - 
+
+  `completed: true` in the response means the request ran synchronously (always true for external callers) — it does not guarantee every shipment succeeded. Check `success_count` / `error_count`; on partial/full failure `error_file_url` points to the error details.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `shipment_ids` | YES | _integer_ | Shipment IDs to generate the combined label+invoice for. Multiple ids can be passed as an array. Max 200 per request. | [123456789, 123456790] |
+}

@@ -1,0 +1,24 @@
+meta {
+  name: Export your orders
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/export
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+
+  }
+}
+
+docs {
+  This API downloads and creates a CSV file of all the orders in your Shiprocket account and sends the download URL to the linked email account of the API user.
+
+  The CSV file containing is accessible via this URL.
+  No parameters are required to access this API.
+}

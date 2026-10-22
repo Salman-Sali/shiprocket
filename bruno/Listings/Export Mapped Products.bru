@@ -1,0 +1,18 @@
+meta {
+  name: Export Mapped Products
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/v1/external/listings/export/mapped
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API downloads the list of mapped items in your channel catalogue sheet. After mapping the items, you can see the number of products in one channel present in the Master Catalogue.
+
+  The downloaded CSV file URL is shared as the response.
+  No other body parameters are required.
+}

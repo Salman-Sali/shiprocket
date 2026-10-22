@@ -1,0 +1,182 @@
+meta {
+  name: Forward
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/v1/external/shipments/create/forward-shipment
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "mode": "",
+    "request_pickup": "",
+    "print_label": "",
+    "generate_manifest": "",
+    "ewaybill_no": "",
+    "courier_id": "",
+    "reseller_name": "",
+    "order_id": "",
+    "isd_code": "",
+    "billing_isd_code": "",
+    "order_date": "",
+    "channel_id": "",
+    "company_name": "",
+    "billing_customer_name": "",
+    "billing_last_name": "",
+    "billing_address": "",
+    "billing_address_2": "",
+    "billing_city": "",
+    "billing_state": "",
+    "billing_country": "",
+    "billing_pincode": "",
+    "billing_email": "",
+    "billing_phone": "",
+    "billing_alternate_phone": "",
+    "shipping_is_billing": "1",
+    "shipping_customer_name": "",
+    "shipping_last_name": "",
+    "shipping_address": "",
+    "shipping_address_2": "",
+    "shipping_city": "",
+    "shipping_state": "",
+    "shipping_country": "",
+    "shipping_pincode": "",
+    "shipping_email": "",
+    "shipping_phone": "",
+    "order_items": [
+      {
+        "name": "",
+        "sku": "",
+        "units": "",
+        "hsn": "",
+        "selling_price": "",
+        "tax": "",
+        "discount": ""
+      }
+    ],
+    "payment_method": "",
+    "shipping_charges": "",
+    "giftwrap_charges": "",
+    "transaction_charges": "",
+    "total_discount": "",
+    "sub_total": "",
+    "weight": "",
+    "length": "",
+    "breadth": "",
+    "height": "",
+    "pickup_location": "",
+    "customer_gstin": "",
+    "vendor_details": {
+      "email": "",
+      "phone": "",
+      "name": "",
+      "address": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "country": "",
+      "pin_code": "",
+      "pickup_location": ""
+    }
+  }
+}
+
+docs {
+  Use this API to do multiple tasks in one go, namely creating a quick order, requesting its shipment, and finally generating the label and the manifest for the same order.
+
+  This API integrates several other APIs to perform all these tasks together.
+
+  **Notes:**
+
+  - 
+
+  Use the 'vendor_details' array to add a new pickup location to your account and assign it to your order.
+
+  - 
+
+  The 'pickup_location' field must contain a new pickup location name for adding a new pickup location to your Shiprocket account.
+
+  - 
+
+  In case of multiple items per order, please pass the final weight (sum total weight of items) of the shipment.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `mode` | NO | _string_ | The mode of shipment, either surface or air. _Value_: **Surface** or **Air** | Air |
+  | `request_pickup` | NO | _boolean_ | Use false if you dont want to request pickup. Default value is true. | true |
+  | `print_label` | NO | _boolean_ | Use false if you dont want to print label. Default value is true. | true |
+  | `generate_manifest` | NO | _boolean_ | Use false if you dont want to generate manifest. Default value is true. | true |
+  | `courier_id` | NO | _integer_ | The courier id of the courier you want to assign. Refer to the servicability API to get id. | 10 |
+  | `reseller_name` | NO | _string_ | The 'from' name if you want to print. Use 'Reseller: [name]' | Reseller: Divine |
+  | `order_id` | YES | _string_ | The custom reference id you want to assign to the order. | 2477 |
+  | `isd_code` | NO | _string_ | The isd code | 91 |
+  | `billing_isd_code` | NO | _string_ | The billing isd code. | 91 |
+  | `order_date` | YES | _string_ | The date of the creation of order. | 2019-08-04 |
+  | `channel_id` | NO | _string_ | The channel id of the specific channel. Use the Channels API to get id. | 72505 |
+  | `company_name` | NO | _string_ | Name of the company. | Amazon |
+  | `billing_customer_name` | YES | _string_ | The first name of customer to be billed. | John |
+  | `billing_last_name` | NO | _string_ | The last name of the billing customer. | Doe |
+  | `billing_address` | YES | _string_ | The primary billing address. | House no 21 |
+  | `billing_address_2` | NO | _string_ | Additional billing address details. | Street 2, Dwarka |
+  | `billing_city` | YES | _string_ | The billing city. | Delhi |
+  | `billing_state` | YES | _string_ | The billing address state. | New Delhi |
+  | `billing_country` | YES | _string_ | The billing address country. | India |
+  | `billing_pincode` | YES | _integer_ | The pincode of the billing address. | 110002 |
+  | `billing_email` | YES | _string_ | The billing customer email. | [john@doe.com](https://mailto:john@doe.com) |
+  | `billing_phone` | YES | _integer_ | The billing customer phone. | 9999998899 |
+  | `billing_alternate_phone` | NO | _integer_ | The billing customer alternate phone. | 8404690454 |
+  | `shipping_is_billing` | YES | _boolean_ | Whether shipping details are the same as billing details. **true** for yes **false** for no. | true |
+  | `shipping_customer_name` | CONDITIONAL YES | _string_ | Shipping customer's first name. | Jane |
+  | `shipping_last_name` | NO | _string_ | Shipping customer's last name. | Doe |
+  | `shipping_address` | CONDITIONAL YES | _string_ | The shipping address. | House no X |
+  | `shipping_address_2` | NO | _string_ | Additional shipping address details. | Street X |
+  | `shipping_city` | CONDITIONAL YES | _string_ | The shipping city. | Mumbai |
+  | `shipping_state` | CONDITIONAL YES | _string_ | The state of the shipping address. | Maharashtra |
+  | `shipping_country` | CONDITIONAL YES | _string_ | The shipping address country. | India |
+  | `shipping_pincode` | CONDITIONAL YES | _integer_ | Shipping pincode. | 230023 |
+  | `shipping_email` | CONDITIONAL YES | _string_ | The email of the shipping customer. | [Jane@Doe.com](https://mailto:Jane@Doe.com) |
+  | `shipping_phone` | CONDITIONAL YES | _integer_ | The phone number of the shipping customer. | 8877997799 |
+  | `order_items` | YES | / | Array containing further parameters. | / |
+  | `name` | YES | _string_ | The name of the product. | Jeans |
+  | `sku` | YES | _string_ | sku Code of the product. | Bat |
+  | `units` | YES | _integer_ | Number of units. | 10 |
+  | `hsn` | NO | _integer_ | HSN code if available. | 4412 |
+  | `selling_price` | YES | _integer_ | The selling price of each unit inclusive of GST. | 200 |
+  | `tax` | NO | _integer_ | The tax applied in percent. | 20 |
+  | `discount` | NO | _integer_ | The discount amount inclusive of tax. | 20 |
+  | `payment_method` | YES | _string_ | If the payment method is Cash on delivery (**COD**) or **Prepaid**. | COD |
+  | `shipping_charges` | NO | _integer_ | The shipping charges if any in rupees. | 5 |
+  | `giftwrap_charges` | NO | _integer_ | The gift-wrap charges if any in rupees. | 5 |
+  | `transaction_charges` | NO | _integer_ | The transaction charges if any in rupees. | 10 |
+  | `total_discount` | NO | _integer_ | The discount amount in rupees. | 15 |
+  | `sub_total` | YES | _integer_ | The sub total amount in rupees. | 1800 |
+  | `weight` | YES | _integer_ | The weight of the shipment in kgs. | 2 |
+  | `length` | YES | _integer_ | The length of the shipment in cms. Must be more than 0.5 | 10 |
+  | `breadth` | YES | _integer_ | The breadth of the shipment in cms. Must be more than 0.5 | 15 |
+  | `height` | YES | _integer_ | The height of the shipment in cms. Must be more than 0.5 | 20 |
+  | `pickup_location` | YES | _string_ | The pickup location name. Equal to an existing pickup location. If you use 'vendor details' to add a new location, it must be equal to the new pickup location name. | Office |
+  | `customer_gstin` | NO | _string_ | Goods and Services Tax Identification Number. | 29ABCDE1234F2Z5 |
+  | `vendor_details` | NO | / | Array containing further parameters. Use to assign/add a new pickup location to your account. | / |
+  | `email` | CONDITIONAL YES | _string_ | The shipper's email address. | [john@doe.com](https://mailto:john@doe.com) |
+  | `phone` | CONDITIONAL YES | _integer_ | The shipper's phone number. | 8888999888 |
+  | `name` | CONDITIONAL YES | _string_ | The shipper's name. | John Doe |
+  | `address` | CONDITIONAL YES | _string_ | The pickup location address. Min 10 characters. | Office Building |
+  | `address_2` | NO | _string_ | Additional address details. Min 10 characters. | Street 2 house 4 |
+  | `city` | CONDITIONAL YES | _string_ | The pickup location city. | Pune |
+  | `state` | CONDITIONAL YES | _string_ | The pickup state. | Maharashtra |
+  | `country` | CONDITIONAL YES | _string_ | The pickup location country. | India |
+  | `pin_code` | CONDITIONAL YES | _integer_ | The pickup pincode. | 200099 |
+  | `pickup_location` | CONDITIONAL YES | _string_ | New pickup location name. Max: 36 char. Alphanumeric only. | New Office |
+  | `order_type` | NO | _string_ | Key to differentiate between Essentials or Non Essentials Shipments. Order type can only be ESSENTIALS or NON ESSENTIALS. Please note it is case sensitive and blank values are allowed | ESSENTIALS |
+  | `longitude` | NO | _float_ | Destination (Shipping address) Longitude. | 69.0747 |
+  | `latitude` | NO | _float_ | Destination (Shipping address) Latitude | 22.4064 |
+  | `what3words_address` | NO | _string_ | What3words is a proprietary geocode system designed to identify any location on the surface of Earth with a resolution of about 3 meters. The system encodes geographic coordinates into three permanently fixed dictionary words. | toddler.geologist.animated |
+  | `is_document` | NO | _integer_ | To create a document order | 1 or 0 |
+  | `reseller_name` | NO | _string_ | To display the vendor name on the label | brandname |
+}

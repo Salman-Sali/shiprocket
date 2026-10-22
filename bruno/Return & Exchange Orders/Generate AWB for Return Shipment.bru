@@ -1,0 +1,33 @@
+meta {
+  name: Generate AWB for Return Shipment
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/v1/external/courier/assign/awb
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "shipment_id": "",
+    "courier_id": "",
+    "status": "",
+    "is_return": ""
+  }
+}
+
+docs {
+  This API can be used to assign the AWB (Air Waybill Number) to your shipment. The AWB is a unique number that helps you track the shipment and get details about it.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `shipment_id` | YES | _integer_ | The shipment id of the order you want to create the AWB of. | 16016920 |
+  | `courier_id` | NO | _integer_ | The courier id of the courier service you want to select. The default courier is selected in case no id is specified. | 10 |
+  | `status` | NO | _string_ | Use this to change the courier of a shipment. Value: reassign Note that this can be done only once in 24 hours. | reassign |
+  | `is_return` | YES | _integer_ | Whether the order is return order or not. 1 in case of Yes and 0 for No. | 1 |
+}

@@ -1,0 +1,86 @@
+meta {
+  name: Add New Products
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/external/products
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+     "name": "Batman451",
+      "category_code": "default",
+      "type": "Single",
+      "qty": "10",
+      "sku": "b118771212",
+      "qc_details": {
+          "product_image": "https://kr-multichannel-stage.s3.ap-south-1.amazonaws.com/1310/qc_product_img/538c2939-24e7-4b60-98cd-b13cee264c1e.jpg",
+          "brand": "redlabel",
+          "color": "white",
+          "size": "L",
+          "product_imei": "",
+          "serial_no": "790878",
+          "ean_barcode": "",
+          "check_damaged_product": true
+  }
+}
+
+docs {
+  Use this API to add a new product to your Shiprocket account.
+  Provide the required product details and any additional info to successfully add a new product to your product list.
+
+  **Notes:**
+
+  - 
+
+  'sku' Id has to be unique. It cannot be the same as an existing sku.
+
+  - 
+
+  In case no category code is added, the code should be default.
+
+  - 
+
+  'type' field should be either 'single' or 'multiple.'
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `sku` | YES | _string_ | Stock Keeping Unit or the identification unit of an individual product (generally alphanumeric). | bat123 |
+  | `HSN` | NO | _string_ | Harmonised System Nomenclature. A code number is used to classify goods for taxation purposes. Done to determine which category of taxes do the goods come under. | 4412 |
+  | `name` | YES | _string_ | Name of the product. | Batman Toy |
+  | `tax_code` | NO | _string_ | The percentage of tax that is to be imposed. | 10 |
+  | `type` | YES | _string_ | If there is only one product or multiple types of products. **Single** or **Multiple** | Single. |
+  | `qty` | YES | _integer_ | Total Quantity of the products to be shipped. | 5 |
+  | `low_stock` | NO | _string_ | Specifies when the low stock notification should come on | / |
+  | `category_code` | YES | _string_ | You can add a category code to your ShipRocket account from “add category” | default |
+  | `description` | NO | _string_ | Gives a description of the product. | Batman plastic toy. |
+  | `brand` | NO | _string_ | The product brand name. | Bat |
+  | `size` | NO | _integer_ | The size of the product. | 25 |
+  | `weight` | NO | _integer_ | The weight of the product in kgs. | 0.5 |
+  | `length` | NO | _integer_ | The length of the product in cms. | 10 |
+  | `width` | NO | _integer_ | The width of the product in cms. | 5 |
+  | `height` | NO | _integer_ | The height of the product in cms. | 15 |
+  | `ean` | NO | _string_ | European Article Number - A barcode for product identification (which helps manufacturers identify how many products have been sold once a sale is made). It is 13 digits long and required for international selling. | / |
+  | `upc` | NO | _string_ | Universal Product Code – Barcode for product identification which is used across the world. It is 12 digits long. | / |
+  | `isbn` | NO | _string_ | International Standard Book Number – Identification barcode for books, magazines, e-books and other published media. It is 10 digits long. | / |
+  | `color` | NO | _string_ | The colour of the product. | Black |
+  | `imei_serialnumber` | NO | _string_ | The International Mobile Equipment Identity Number, which is used by a network to identify valid devices. E.g. if two iPhones have to be shipped, they will have 2 IMEI numbers | / |
+  | `cost_price` | NO | _integer_ | The manufacture cost price of the product. | 500 |
+  | `mrp` | NO | _string_ | Maximum Retail Price. How much is the maximum price which the product can be sold at. | 1000 |
+  | `status` | NO | _boolean_ | In Boolean, if the product details have been successfully or unsuccessfully added. | 1 |
+  | `image_url` | NO | _string_ | Shows the URL of the product images which have been uploaded. | / |
+  | `qc_details` | NO | / | List of items and their relevant fields in the form of Array. | / |
+  | `product_image` | CONDITIONAL YES | _string_ | Pickup agent will cross check theshared product with the actual product received from the buyer. Mandatory for all QC Products | [https://abc/xyz.jpg](https://abc/xyz.jpg) |
+  | `brand` | CONDITIONAL YES | _string_ | The pickup agent will cross check the provided brand name visible on the item(s) or its packaging. | shiprocket |
+  | `brand_tag` | CONDITIONAL YES | _string_ | The pickup agent will cross-check the provided brand name, which should match the brand tag affixed to the item(s) upon delivery. | shiprocket |
+  | `color` | CONDITIONAL YES | _string_ | Pickup agent will cross check shared product color with the actual product received from the buyer. | green |
+  | `size` | CONDITIONAL YES | _string_ | Pickup agent will cross check shared product size with the size on the label/tag. | L |
+  | `product_imei` | CONDITIONAL YES | _string_ | It is a 15 digit unique number. It is displayed on the screen, on the box, or at the back of the appliance. This can be used to check production & garauntee of the appliance. | 0123456781234 |
+  | `serial_no` | CONDITIONAL YES | _string_ | A serial number (SN) is a unique alphanumeric value assigned to each individual product. | 123456 |
+}

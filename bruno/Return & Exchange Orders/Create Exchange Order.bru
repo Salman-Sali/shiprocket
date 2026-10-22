@@ -1,0 +1,146 @@
+meta {
+  name: Create Exchange Order
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/create/exchange
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "order_items": [
+      {
+        "name": "Black tshirt XL",
+        "selling_price": "500.00",
+        "units": "1",
+        "hsn": "1733808730720",
+        "sku": "mackbook",
+        "tax": "",
+        "discount": "",
+        "brand": "",
+        "color": "",
+        "exchange_item_id": "193658024",
+        "exchange_item_name": "Black tshirt XL",
+        "exchange_item_sku": "mackbook",
+        "qc_enable": true,
+        "qc_product_name": "Black tshirt XL",
+        "qc_product_image": "https://sr-multichannel-stage.s3.ap-south-1.amazonaws.com/1310/qc_product_img/547950c2-9c2f-4908-98d5-276f9ad5b63a.png",
+        "qc_brand": "changedname1",
+        "qc_color": "changecolr",
+        "qc_size": "changesize112",
+        "accessories": "",
+        "qc_used_check": "1",
+        "qc_sealtag_check": "1",
+        "qc_brand_box": "1",
+        "qc_check_damaged_product": "yes"
+      }
+    ],
+    "buyer_pickup_first_name": "Test",
+    "buyer_pickup_last_name": "Test",
+    "buyer_pickup_email": "test@gmail.com",
+    "buyer_pickup_address": "Test",
+    "buyer_pickup_address_2": "",
+    "buyer_pickup_city": "South West Delhi",
+    "buyer_pickup_state": "Delhi",
+    "buyer_pickup_country": "India",
+    "buyer_pickup_phone": "9716414139",
+    "buyer_pickup_pincode": "110045",
+    "buyer_shipping_first_name": "Test",
+    "buyer_shipping_last_name": "Test",
+    "buyer_shipping_email": "test@gmail.com",
+    "buyer_shipping_address": "dkalsd",
+    "buyer_shipping_address_2": "",
+    "buyer_shipping_city": "South West Delhi",
+    "buyer_shipping_state": "Delhi",
+    "buyer_shipping_country": "India",
+    "buyer_shipping_phone": "9716414139",
+    "buyer_shipping_pincode": "110045",
+    "seller_pickup_location_id": "5723898",
+    "seller_shipping_location_id": "5723898",
+    "exchange_order_id": "EX_TEST002",
+    "return_order_id": "R_TEST002",
+    "payment_method": "prepaid",
+    "order_date": "2024-12-10",
+    "channel_id": "1960878",
+    "existing_order_id": "",
+    "return_reason": "29",
+    "sub_total": "500.00",
+    "shipping_charges": "",
+    "giftwrap_charges": "",
+    "total_discount": "0",
+    "transaction_charges": "",
+    "exchange_length": "11",
+    "exchange_breadth": "11",
+    "exchange_height": "11",
+    "exchange_weight": "11",
+    "return_length": "10.00",
+    "return_breadth": "10.00",
+    "return_height": "10.00",
+    "return_weight": "0.500",
+    "qc_check": "true"
+  }
+}
+
+docs {
+  Use this API to create a new exchange order in your Shiprocket panel. Exchange orders are created in case the buyer needs to replace an item due to reasons such as size mismatch, wrong product received, or defective product. This API helps sellers seamlessly process exchange requests while ensuring the correct quality checks and logistics handling
+
+  ##### Parameters:
+
+  | PARAMS | REQUIRED | DATA TYPE | DESCRIPTION | EXAMPLE |
+  |---|---|---|---|---|
+  | `exchange_order_id` | YES | _String_ | Unique ID for the exchange order | EX_TEST002 |
+  | `seller_pickup_location_id` | YES | _String_ | Pickup location ID of the seller | 5723898 |
+  | `seller_shipping_location_id` | YES | _String_ | Shipping location ID of the seller | 5723898 |
+  | `return_order_id` | YES | _String_ | Unique ID for the return order | R_TEST002 |
+  | `order_date` | YES | _Date_ | Date of order placement (YYYY-MM-DD) | 2024-12-10 |
+  | `payment_method` | YES | _String_ | Payment method used for the order | prepaid |
+  | `buyer_shipping_first_name` | YES | _String_ | First name of the shipping buyer | Test |
+  | `buyer_shipping_last_name` | NO | _String_ | Last name of the shipping buyer | Test |
+  | `buyer_shipping_email` | NO | _String_ | Email of the shipping buyer (valid email format) | [test@gmail.com](https://null) |
+  | `buyer_shipping_address` | YES | _String_ | Full address of the shipping buyer | dkalsd |
+  | `buyer_shipping_address_2` | NO | _String_ | Additional address details |  |
+  | `buyer_shipping_city` | YES | _String_ | City of the shipping buyer | South West Delhi |
+  | `buyer_shipping_state` | YES | _String_ | State of the shipping buyer | Delhi |
+  | `buyer_shipping_country` | YES | _String_ | Country of the shipping buyer | India |
+  | `buyer_shipping_pincode` | YES | _String_ | Pincode of the shipping address | 110045 |
+  | `buyer_shipping_phone` | YES | _String_ | Contact number of the shipping buyer (10 digits) | 9716414139 |
+  | `buyer_pickup_first_name` | YES | _String_ | First name of the pickup buyer | Test |
+  | `buyer_pickup_last_name` | NO | _String_ | Last name of the pickup buyer | Test |
+  | `buyer_pickup_email` | NO | _String_ | Email of the pickup buyer | [test@gmail.com](https://null) |
+  | `buyer_pickup_address` | YES | _String_ | Full address of the pickup buyer | Test |
+  | `buyer_pickup_address_2` | NO | _String_ | Additional pickup address details |  |
+  | `buyer_pickup_city` | YES | _String_ | City of the pickup buyer | South West Delhi |
+  | `buyer_pickup_state` | YES | _String_ | State of the pickup buyer | Delhi |
+  | `buyer_pickup_country` | YES | _String_ | Country of the pickup buyer | India |
+  | `buyer_pickup_pincode` | YES | _String_ | Pincode of the pickup address | 110045 |
+  | `buyer_pickup_phone` | YES | _String_ | Contact number of the pickup buyer (10 digits) | 9716414139 |
+  | `order_items` | YES | _Array_ | List of items in the order |  |
+  | `order_items[].name` | YES | _String_ | Name of the product | Black tshirt XL |
+  | `order_items[].selling_price` | YES | _Float_ | Price of the product | 500.00 |
+  | `order_items[].units` | YES | _Integer_ | Quantity of the product | 1 |
+  | `order_items[].hsn` | YES | _String_ | HSN code of the product | 1733808730720 |
+  | `order_items[].sku` | YES | _String_ | SKU of the product | mackbook |
+  | `order_items[].tax` | NO | _Float_ | Tax amount |  |
+  | `order_items[].discount` | NO | _Float_ | Discount on the product |  |
+  | `order_items[].exchange_item_id` | NO | _String_ | Exchange item ID | 193658024 |
+  | `order_items[].exchange_item_name` | YES | _String_ | Exchange item name | Black tshirt XL |
+  | `order_items[].exchange_item_sku` | YES | _String_ | Exchange item SKU | mackbook |
+  | `sub_total` | YES | _Float_ | Subtotal amount | 500.00 |
+  | `shipping_charges` | NO | _Float_ | Shipping charges |  |
+  | `giftwrap_charges` | NO | _Float_ | Gift wrapping charges |  |
+  | `total_discount` | NO | _Float_ | Total discount on the order | 0 |
+  | `transaction_charges` | NO | _Float_ | Transaction charges |  |
+  | `return_length` | YES | _Float_ | Return package length (cm) | 10.00 |
+  | `return_breadth` | YES | _Float_ | Return package breadth (cm) | 10.00 |
+  | `return_height` | YES | _Float_ | Return package height (cm) | 10.00 |
+  | `return_weight` | YES | _Float_ | Return package weight (kg) | 0.500 |
+  | `exchange_length` | YES | _Float_ | Exchange package length (cm) | 11.00 |
+  | `exchange_breadth` | YES | _Float_ | Exchange package breadth (cm) | 11.00 |
+  | `exchange_height` | YES | _Float_ | Exchange package height (cm) | 11.00 |
+  | `exchange_weight` | YES | _Float_ | Exchange package weight (kg) | 11.00 |
+  | `return_reason` | YES | _String_ | Reason for return | 29 |
+}

@@ -1,0 +1,38 @@
+meta {
+  name: Request for Shipment Pickup
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/external/courier/generate/pickup
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "shipment_id": [16090109]
+  }
+}
+
+docs {
+  Use this API to create a pickup request for your order shipment. The API returns the pickup status along with the estimated pickup time.
+  You will have to call the 'Generate Manifest' API after the successful response of this API.
+
+  **Note:**
+
+  - The AWB must be already generated for the shipment id to generate the pickup request.
+
+  - Only one shipment_id can be passed at a time.
+
+  - In case the pickup_date falls on a holiday or Sunday, the shipment will be booked for the next available date.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `shipment_id` | YES | integer | The shipment id of the shipment which is requested for pickup. | [16090109] |
+  | `status` | NO | _string_ | Use this field to retry if the pickup request fails. Value: retry | retry |
+  | `pickup_date` | NO | _Array of Dates_ | Use this field to schedule a pickup for a future date. The date format would be YYYY-MM-DD. You can reschedule the date till that date has not passed | ["2022-06-04"] |
+}

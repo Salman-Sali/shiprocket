@@ -1,0 +1,33 @@
+meta {
+  name: Add Bank Details
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/external/international/settings/add-bank-details
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "bank_account_type": "saving",
+      "beneficiary_name": "JohnDoe",
+      "bank_ifsc_code": "ABCD0123456",
+      "bank_account_number": "1234567890"
+  }
+}
+
+docs {
+  ThisdocumentationprovidesinformationabouttheBankDetailsAPI,whichallowsyouto
+  addbankdetailsforinternationalsettings.TheAPIendpoint, parameters, request sample
+  data, success response , and failed response are outlined below.
+
+  | PARAMS | REQUIRED | DATA TYPE | DESCRIPTION | EXAMPLE |
+  |---|---|---|---|---|
+  | bank_account_type | YES | string | ankaccounttype.Mustbe either"saving"or"current". | "saving" |
+  | beneficiary_name | YES | string | Beneficiaryname. Alphabetsandspacesonly | "JohnDoe" |
+  | bank_ifsc_code | YES | string | BankIFSCcode.Must followaspecificpattern | "ABCD0123456" |
+  | bank_account_number | YES | integer | Bankaccountnumber. Shouldbebetween9and 18digits. | 1234567890 |
+}

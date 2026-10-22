@@ -1,0 +1,69 @@
+meta {
+  name: Get Blocked Pincodes
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{serviceabilityBaseUrl}}/v1/external/block-pincodes/get
+  body: none
+  auth: inherit
+}
+
+docs {
+  Reads the seller's delivery‑block list. **Multi‑mode** — the mode is selected by query parameters:
+
+  | Query parameter | Mode |
+  |---|---|
+  | `?is_download=1` | CSV download (highest priority) |
+  | `?search=` (non‑empty after trim) | Prefix search |
+  | (default — neither of the above) | Paginated list |
+
+  Only `delivery_blocked` data is exposed. 
+
+  ##### Authentication
+
+  Pass the bearer token via header or query parameter:
+
+  | Method | Where | Example |
+  |---|---|---|
+  | Header (standard) | `Authorization` | `Authorization: Bearer` |
+  | Query parameter | `?token=` | `?token=` |
+
+  ##### Query Parameters
+
+  | Param | Type | Required | Default | Description |
+  |---|---|---|---|---|
+  | `is_download` | int | No | — | Set to `1` for a presigned S3 link to a CSV of all pincodes. |
+  | `search` | string | No | — | Prefix‑match filter. Frontend should enforce a 4‑char minimum; server does not validate. |
+  | `per_page` | int | No | `15` | Page size (paginated mode only). Range `1–15` (silently capped at 15). |
+  | `current_page` | int | No | `1` | Page number (paginated mode only). Must be `>= 1`. |
+
+  ##### Mode Precedence
+
+  1. 
+
+  `is_download=1` — wins over everything
+
+  2. 
+
+  `search` (non‑empty after trim) — wins over pagination
+
+  3. 
+
+  Default — paginated list
+
+  ##### Notes
+
+  - 
+
+  **Search isn't validated server‑side** — pass any string; the server does prefix matching as‑is.
+
+  - 
+
+  **CSV download URL is presigned for 24 hours** — generate a fresh link by calling the endpoint again after expiry.
+
+  - 
+
+  `per_page` is silently capped at 15; values above 15 are treated as 15.
+}

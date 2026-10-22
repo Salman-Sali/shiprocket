@@ -1,0 +1,128 @@
+meta {
+  name: Return
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/v1/external/shipments/create/return-shipment
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+  "order_id": "",
+  "order_date": "",
+  "channel_id": "",
+  "pickup_customer_name": "",
+  "pickup_last_name": "",
+  "company_name":"",
+  "pickup_address": "",
+  "pickup_address_2": "",
+  "pickup_city": "",
+  "pickup_state": "",
+  "pickup_country": "",
+  "pickup_pincode": ,
+  "pickup_email": "",
+  "pickup_phone": "",
+  "pickup_isd_code": "",
+  "shipping_customer_name": "",
+  "shipping_last_name": "",
+  "shipping_address": "",
+  "shipping_address_2": "",
+  "shipping_city": "",
+  "shipping_country": "",
+  "shipping_pincode": ,
+  "shipping_state": "",
+  "shipping_email": "",
+  "shipping_isd_code": "",
+  "shipping_phone": ,
+  "order_items": [
+  {
+  "sku": "",
+  "name": "",
+  "units":"",
+  "selling_price":"",
+  "discount":""
+  }
+  ],
+  "payment_method": "",
+  "total_discount": "",
+  "sub_total":"",
+  "length":"",
+  "breadth":"",
+  "height":"",
+  "weight":"",
+  "request_pickup":""
+  }
+}
+
+docs {
+  Use this API to perform multiple tasks like Create, AWB generation & scheduling reverse pickups for your Returns.
+  The specifications are the same as the custom return order API, with a few exceptions.
+
+  **Notes:**
+
+  - 
+
+  pickup_location field is not required.
+
+  - 
+
+  Label and Manifest are not required in case of returns.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_id` | YES | _string_ | The order id you want to specify to the order. Max char: 50. (Avoid passing character values as this contradicts some other API calls) | 99711997 |
+  | `order_date` | YES | _string_ | The date of order creation in yyyy-mm-dd format. Time is an additional option. | 2019-08-05 |
+  | `channel_id` | NO | _integer_ | Id of the desired channel where the order is to be placed. 'Custom' channel id is selected in case parameter is not filled. | 768903 |
+  | `pickup_customer_name` | YES | _string_ | The customer’s first name. | John |
+  | `pickup_last_name` | NO | _string_ | The customer’s last name. | Doe |
+  | `company_name` | NO | _string_ | Name of the company | Amazon |
+  | `pickup_address` | YES | _string_ | The customer's primary address. | Home |
+  | `pickup_address_2` | NO | _string_ | Additional customer address details. | DDA |
+  | `pickup_city` | YES | _string_ | The customer's city name. | Delhi |
+  | `pickup_state` | YES | _string_ | The customer's state. | New Delhi |
+  | `pickup_country` | YES | _string_ | Customer's country name. | India |
+  | `pickup_pincode` | YES | _integer_ | Pincode of the customer address. | 110002 |
+  | `pickup_email` | YES | _string_ | Customer's email address. | [john@doe.com](https://mailto:john@doe.com) |
+  | `pickup_phone` | YES | _string_ | Customer's phone number. | 9999999999 |
+  | `pickup_isd_code` | NO | _string_ | ISD code. | 91 |
+  | `shipping_customer_name` | YES | _string_ | The name of the seller the package is shipped back to. | Jane |
+  | `shipping_last_name` | NO | _string_ | The last name of the seller. | Doe |
+  | `shipping_address` | YES | _string_ | The address the package is shipped to. | Castle |
+  | `shipping_address_2` | NO | _string_ | Further shipping address details. | Bridge |
+  | `shipping_city` | YES | _string_ | The shipping address city. | Mumbai |
+  | `shipping_country` | YES | _string_ | The shipping address country. | India |
+  | `shipping_pincode` | YES | _integer_ | The shipping pincode. | 220022 |
+  | `shipping_state` | YES | _string_ | Shipping address state. | Maharashtra |
+  | `shipping_email` | YES | _string_ | The email of the seller the package is shipped to. | [jane@doe.com](https://mailto:jane@doe.com) |
+  | `shipping_isd_code` | NO | _string_ | The shipping isd code. | 91 |
+  | `shipping_phone` | YES | _integer_ | Phone no. of the shipping customer | 8888888888 |
+  | `order_items` | YES | / | Array containing further fields. | / |
+  | `name` | YES | _string_ | Name of the product. | ball123 |
+  | `sku` | YES | _string_ | The sku id of the product. | Tennis Ball |
+  | `units` | YES | _integer_ | No of units that are to be shipped. | 1 |
+  | `selling_price` | YES | _integer_ | The selling price per unit in Rupee. Inclusive of GST. | 10 |
+  | `discount` | NO | _integer_ | The discount amount in Rupee. Inclusive of tax. | 0 |
+  | `hsn` | NO | _string_ | Harmonised System Nomenclature code. Used to determine the category of taxation the goods fall under. | 4412 |
+  | `qc_enable` | CONDITIONAL YES | _string_ | If True, QC will be performed for that product and QC will be performed only for a single SKU per order | TRUE/FALSE |
+  | `qc_color` | NO | _varchar(180)_ | The color of the product can be passed in this parameter | Red |
+  | `qc_brand` | NO | _varchar(255)_ | The brand of the product can be passed in this parameter | 768903 |
+  | `qc_serial_no` | NO | _varchar(255)_ | The serial number of the product can be passed in this parameter | T13123124 |
+  | `qc_ean_barcode` | NO | _varchar(255)_ | EAN/Barcode of the product can be passed in this parameter | QWRE123 |
+  | `qc_size` | NO | _varchar(180)_ | The size of the product can be passed in this parameter | 8 |
+  | `qc_product_name` | CONDITIONAL YES | _varchar(255)_ | If qc_enable set True, then Product name should be passed in this parameter | Shoes |
+  | `qc_product_image` | CONDITIONAL YES | _varchar(255)_ | If qc_enable set True, then Product image should be passed in this parameter (only png/jpg format supported) | [https://s3-ap-southeast-1.amazonaws.com/kr-multichannel/1636713733zxja.png](https://s3-ap-southeast-1.amazonaws.com/kr-multichannel/1636713733zxja.png) |
+  | `qc_product_imei` | NO | _varchar(255)_ | IMEI of the device | 86532976457823 |
+  | `payment_method` | YES | _string_ | The method of payment. Can be either COD (Cash on delivery) Or Prepaid. | Prepaid |
+  | `total_discount` | NO | _string_ | The total discount amount in Rupee. | 0 |
+  | `sub_total` | YES | _integer_ | Calculated sub total amount in Rupee after deductions. | 10 |
+  | `length` | YES | _integer_ | The length of the shipment in cms. | 10 |
+  | `breadth` | YES | _integer_ | The breadth of the shipment in cms. | 15 |
+  | `height` | YES | _integer_ | The height of the shipment in cms. | 20 |
+  | `weight` | YES | _integer_ | The shipment weight in kgs. | 1 |
+}

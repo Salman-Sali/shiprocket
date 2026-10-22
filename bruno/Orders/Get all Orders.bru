@@ -1,0 +1,45 @@
+meta {
+  name: Get all Orders
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/orders
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API call will display a list of all created and available orders in your Shiprocket account. The product and shipment details are displayed as sub-arrays within each order detail.
+
+  You can also sort and filter the data according to your needs by passing the optional parameters. Not passing anything will display the data in the default format.
+
+  You can also fetch the data based on the order update date. PFB the validations:
+
+  ```
+  `1. if updated_to => passed and updated_from not passed =>, error will come => Please send update_from date along with update_to date
+  2. if updated_from => passed and updated_to => paased => and from-to > 30 then error => Difference between updated_from and update_to date should not be greater than 30 days.
+  3. if updated_From < 30 then error => Updated_from date should not be less than 30 days from current date
+
+  `
+  ```
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `page` | NO | _integer_ | The page number to display. | 5 |
+  | `per_page` | NO | _integer_ | The number of entries per page. | 5 |
+  | `sort` | NO | _string_ | Sort conditions: ASC or DESC | ASC |
+  | `sort_by` | NO | _string_ | The Field to sort by: id or status | id |
+  | `to` | NO | _string_ | The end date. | 2018-07-24 |
+  | `from` | NO | _string_ | The start date. | 2019-07-24 |
+  | `filter_by` | NO | _string_ | Field to filter by. | status, payment_method, delivery_country, channel_order_id |
+  | `filter` | NO | _string_ | Value of the field |  |
+  | `search` | NO | _string_ | Search for AWB or by Channel order_id (order id specified by you). | 224477 |
+  | `pickup_location` | NO | _string_ | Search Orders on the basis of pickup location. | xyz |
+  | `channel_id` | NO | _integer_ | Channel ID Returned in Get Integrated Channels API | 123 |
+  | `fbs` | NO | _integer_ | Use this filter if you want to view and filter the SRF orders | 0 or 1 |
+  | `fbs_all_orders` | NO | _integer_ | Use this filter if you want to view both SRF and Last mile (core) orders | 0 or 1 |
+}

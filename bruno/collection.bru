@@ -1,0 +1,738 @@
+auth {
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  Welcome to Shiprocket's API Documentation. We've designed this document to help developers and Shiprocket users fully understand and integrate our API for a seamless and easy deployment. These APIs enable you to utilize most of your Shiprocket account's panel features fully.
+
+  We've listed all the APIs, their required parameters, and their example requests and responses on the right for easy understanding. The easiest way to start using the Shiprocket APIs is by clicking the **Run in Postman** button above. The [Postman](https://www.getpostman.com/) is a free tool that helps developers run and debug API requests.
+
+  Our APIs are based around [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) architecture and use the basic [HTTP](https://www.tutorialspoint.com/http/http_status_codes) request methods. Our APIs accept [JSON](https://www.w3schools.com/whatis/whatis_json.asp) - encoded body requests and return data in the same form.
+
+  Read through the following sections for the integration process.
+
+  ## Getting Started
+
+  First, you need to register with ShipRocket and create an account. Click on this [link](https://app.shiprocket.in/register) to complete the sign-up process.
+
+  After the sign-up process is complete, follow the steps listed below to create an API user:
+
+  1. 
+
+  Log in to your Shiprocket account.
+
+  2. 
+
+  From the left-hand menu, go to:
+   **Settings → API → Add New API User**
+
+  3. 
+
+  Click on "Create API User."
+
+  4. 
+
+  In the pop-up form:
+   . Enter a **unique email address** (must be different from the one used for your main Shiprocket login).
+   . Under **Modules to Access**, select the relevant **API modules** you want your user to access.
+   . Under **Buyer's Details Access**, choose either "**Allowed**" or "**Not Allowed**" based on your requirement.
+
+  5. 
+
+  Click on "**Create User.**"
+
+  6. 
+
+  Copy your Admin API password or API key immediately, as we will not show it again for security reasons.
+
+  Once created, you can proceed to generate an auth token using the Authentication API for further integration.
+
+  ## Document and API Usage Guidelines
+
+  - 
+
+  Our APIs use the basic HTTP request codes: _POST_, _GET_, _PATCH_, & _PUT_.
+
+  - 
+
+  You can select the required response and request code language by selecting it from the drop-down menu on the top.
+
+  - 
+
+  You can import and test all our full API collection in the Postman app by clicking on the **' Run in Postman'** button.
+
+  - 
+
+  **Note**: Any requests made using the valid API credentials will affect the real-time data in your Shiprocket account.
+
+  - 
+
+  Authorization: Bearer
+
+  - 
+
+  All the APIs are provided with their appropriate example requests and responses for successful and failed calls. The example definitions are:
+
+    - 
+
+  **Successful Call**: The API call was correct.
+
+    - 
+
+  **Invalid Data**: The data entered was incorrect.
+
+    - 
+
+  **Missing Fields**: Some of the required fields are missing.
+
+    - 
+
+  **Wrong Format**: There is a syntax error in the code.
+
+  - 
+
+  **Note**: The `order_id` defined by you at the time of order creation is your reference order id. The `order_id` returned in the API response is the _Shiprocket order id_. All our APIs will use this Shiprocket order id to access your created order unless stated otherwise.
+
+  ## Errors and Response codes
+
+  While using Shiprocket's APIs, you may run into some standard response and error codes. The most common ones are listed along with their descriptions as follows:
+
+  | **RESPONSE CODE** | **DESCRIPTION** |
+  |---|---|
+  | `200` & `202` - **OK** & **Accepted** | Everything worked as expected, and you'll get a response. Some APIs may respond with an error message if data is invalid. |
+  | `400` - **Bad Request** | The request was invalid or cannot be otherwise served. |
+  | `401` - **Unauthorized** | There is some error during validation. You need to check your token or credentials. |
+  | `404` - **Not Found** | The URI requested is invalid or the resource requested does not exist. |
+  | `405` - **Method Not Allowed** | The API was accessed using the wrong method. Check your HTTP method. |
+  | `422` - **Unprocessable Entity** | It means the request contains incorrect syntax or cannot be fulfilled. Try checking your code for errors. |
+  | `429` - **Too Many Requests** | You have exceeded the API call rate limit. |
+  | `500`, `502`, `503`, `504` - **Server Errors** | Some server error has occurred. Some APIs may show this due to syntax or parameter errors. Try contacting support if this persists. |
+
+  ## Webhooks
+
+  You can set up a webhook with Shiprocket to get tracking updates. We will proactively notify your system whenever there is a new tracking event for an order.
+
+  **Setup**:
+
+  - 
+
+  Log in to your Shiprocket account
+
+  - 
+
+  Go to Settings > API > Webhooks
+
+  - 
+
+  Add the webhook URL
+
+  - 
+
+  Enable the toggle
+
+  - 
+
+  Add the security token (not mandatory)
+
+  When we get a new tracking event, a POST request is made to the callback URL you added to your Shiprocket account.
+
+  **Webhook Specifications:**
+
+  - 
+
+  Method: POST
+
+  - 
+
+  The `Content-Type` header should be set to `application/json`
+
+  - 
+
+  Please do not use keywords like shiprocket, kartrocket, sr, or kr in your webhook URL
+
+  - 
+
+  Security token should be an`x-api-key`
+
+  - 
+
+  The URL should be set to send only code 200 in response.
+
+  #### Sample Body:
+
+  ```
+  `{
+     "awb":"19041424751540",
+     "courier_name":"Delhivery Surface",
+     "current_status":"IN TRANSIT",
+     "current_status_id":20,
+     "shipment_status":"IN TRANSIT",
+     "shipment_status_id":18,
+     "current_timestamp":"23 05 2023 11:43:52",
+     "order_id":"1373900_150876814",
+     "sr_order_id":348456385,
+     "awb_assigned_date":"2023-05-19 11:59:16",
+     "pickup_scheduled_date":"2023-05-19 11:59:17",
+     "etd":"2023-05-23 15:40:19",
+     "scans":[
+        {
+           "date":"2023-05-19 11:59:16",
+           "status":"X-UCI",
+           "activity":"Manifested - Manifest uploaded",
+           "location":"Chomu_SamodRd_D (Rajasthan)",
+           "sr-status":"5",
+           "sr-status-label":"MANIFEST GENERATED"
+        },
+        {
+           "date":"2023-05-19 15:32:17",
+           "status":"X-PPOM",
+           "activity":"In Transit - Shipment picked up",
+           "location":"Chomu_SamodRd_D (Rajasthan)",
+           "sr-status":"42",
+           "sr-status-label":"PICKED UP"
+        },
+        {
+           "date":"2023-05-19 16:40:19",
+           "status":"X-PIOM",
+           "activity":"In Transit - Shipment Recieved at Origin Center",
+           "location":"Chomu_SamodRd_D (Rajasthan)",
+           "sr-status":"6",
+           "sr-status-label":"SHIPPED"
+        },
+        {
+           "date":"2023-05-19 17:19:14",
+           "status":"X-DBL1F",
+           "activity":"In Transit - Added to Bag",
+           "location":"Chomu_SamodRd_D (Rajasthan)",
+           "sr-status":"NA",
+           "sr-status-label":"NA"
+        },
+        {
+           "date":"2023-05-20 10:27:56",
+           "status":"X-DLL2F",
+           "activity":"In Transit - Bag Added To Trip",
+           "location":"Chomu_SamodRd_D (Rajasthan)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-20 12:23:44",
+           "status":"X-ILL2F",
+           "activity":"In Transit - Trip Arrived",
+           "location":"Jaipur_Sez_GW (Rajasthan)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-20 14:24:50",
+           "status":"X-ILL1F",
+           "activity":"In Transit - Bag Received at Facility",
+           "location":"Jaipur_Sez_GW (Rajasthan)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-20 15:23:38",
+           "status":"X-IBD3F",
+           "activity":"In Transit - Shipment Received at Facility",
+           "location":"Jaipur_Sez_GW (Rajasthan)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-20 15:23:38",
+           "status":"X-DWS",
+           "activity":"In Transit - System weight captured",
+           "location":"Jaipur_Sez_GW (Rajasthan)",
+           "sr-status":"NA",
+           "sr-status-label":"NA"
+        },
+        {
+           "date":"2023-05-20 16:01:22",
+           "status":"X-DBL1F",
+           "activity":"In Transit - Added to Bag",
+           "location":"Jaipur_Sez_GW (Rajasthan)",
+           "sr-status":"NA",
+           "sr-status-label":"NA"
+        },
+        {
+           "date":"2023-05-21 09:50:45",
+           "status":"X-DLL2F",
+           "activity":"In Transit - Bag Added To Trip",
+           "location":"Jaipur_Sez_GW (Rajasthan)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-22 22:01:12",
+           "status":"X-ILL2F",
+           "activity":"In Transit - Trip Arrived",
+           "location":"Bhiwandi_Mega_GW (Maharashtra)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-23 02:55:34",
+           "status":"X-ILL1F",
+           "activity":"In Transit - Bag Received at Facility",
+           "location":"Bhiwandi_Mega_GW (Maharashtra)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-23 07:38:08",
+           "status":"X-DLL2F",
+           "activity":"In Transit - Bag Added To Trip",
+           "location":"Bhiwandi_Mega_GW (Maharashtra)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-23 09:48:27",
+           "status":"X-ILL2F",
+           "activity":"In Transit - Trip Arrived",
+           "location":"Mumbai_MiraRdIndEstate_I (Maharashtra)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "date":"2023-05-23 10:14:27",
+           "status":"X-ILL1F",
+           "activity":"In Transit - Bag Received at Facility",
+           "location":"Mumbai_MiraRdIndEstate_I (Maharashtra)",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        },
+        {
+           "location":"Mumbai_MiraRdIndEstate_I (Maharashtra)",
+           "date":"2023-05-23 11:43:46",
+           "activity":"In Transit - Shipment Received at Facility",
+           "status":"X-IBD3F",
+           "sr-status":"18",
+           "sr-status-label":"IN TRANSIT"
+        }
+     ],
+     "is_return":0,
+     "channel_id":3422553,
+     "pod_status":"OTP Based Delivery",
+     "pod":"Not Available",
+     "qc_image":"",
+     "qc_failure_reason":""
+  }
+
+  `
+  ```
+
+  ## Sense
+
+  Businesses can enhance their internal and customer-facing applications using Sense intelligence through our API products. For more information, please visit [https://www.](https://www.shiprocket.in/sense.)[console.shiprocket.in](http://console.shiprocket.in/)
+
+  #### Product Offerings:
+
+  1. 
+
+  Sense RTO Score API - Predicts return-to-origin (RTO) events
+
+  2. 
+
+  SenseAddress API - Provides address standardization and validation
+
+  #### Use Cases for RTO Score API:
+
+  - 
+
+  Online retail platforms
+
+  - 
+
+  Logistics or delivery apps/journeys
+
+  - 
+
+  E-commerce customer service tools
+
+  #### Use Cases for Sense Address API:
+
+  - 
+
+  Operational efficiency
+
+  - 
+
+  Delivery success
+
+  - 
+
+  Address quality and accuracy
+
+  #### Applications:
+
+  - 
+
+  **BFSI**: Doorstep banking, KYC processes
+
+  - 
+
+  **Retail**: Enhancing customer experiences
+
+  - 
+
+  **FinTech**: Improving service accuracy
+
+  - 
+
+  **E-commerce**: Ensuring delivery accuracy
+
+  - 
+
+  **Location Intelligence**: Various industry applications
+
+  #### API Details:
+
+  - 
+
+  Address Score API: Evaluates and scores addresses for overall quality and suitability.
+
+  - 
+
+  Address Verification API: Validates and ensures accuracy by comparing addresses with past entries.
+
+  - 
+
+  RTO Prediction API: Uses machine learning, historical data, and key parameters to forecast if an order will return to its origin efficiently.
+
+  #### Support:
+
+  - 
+
+  All the required information on integration is in this document. Please read it thoroughly.
+
+  - 
+
+  For any integration and API-related support, you can feel free to drop us an email at [_**integration@shiprocket.com**_](https://mailto:integration@shiprocket.in).
+    For any other issues, please email us at: [_**support@shiprocket.com**_](https://mailto:support@shiprocket.in).
+
+  - 
+
+  The Shiprocket terms of service are listed here: [Terms Of Service](https://www.shiprocket.in/terms-conditions/)
+
+  ## Shiprocket MCP Server
+
+  A Model Context Protocol (MCP) server that enables AI clients (like Claude or Cursor) to interact with Shiprocket’s logistics platform through natural language. Using this AI, clients can create conversational requests into authenticated API calls, covering shipping rates, order creation, tracking, cancellations, pickups, and label generation[](https://deepwiki.com/bfrs/shiprocket-mcp?utm_source=chatgpt.com)
+
+  #### **Key Features:**
+
+  - 
+
+  **Get real-time shipping rates for any pincode, city, or state with a simple command.**
+
+  - 
+
+  **Create or update orders instantly with details like dimensions, weight, and address.**
+
+  - 
+
+  **Assign couriers and schedule pickups effortlessly—just tell it what, where, and when.**
+
+  - 
+
+  **Generate shipping labels for your orders in one step.**
+
+  - 
+
+  **Cancel orders or shipments before they're dispatched.**
+
+  - 
+
+  **Track shipments live using AWB, Shiprocket Order ID, or your source order ID.**
+
+  - 
+
+  **Manage your entire order workflow—from creation to delivery—through natural prompts.**
+
+  #### List of Tools available:
+
+  | **Tool Name** | **Description** |
+  |---|---|
+  | **shipping_rate_calculator** | **Get shipping rates for a specific package between origin and destination.** |
+  | **estimated_date_of_delivery** | **Estimate the delivery date for a shipment based on locations.** |
+  | **order_create** | **Create a new shipment/order in the Shiprocket platform.** |
+  | **order_list** | **List recent orders created via the account.** |
+  | **order_track** | **Track a specific order using AWB, Shiprocket Order ID, or source ID.** |
+  | **order_ship** | **Assign a courier and generate shipping for a created order.** |
+  | **order_pickup_schedule** | **Schedule a pickup for an existing order.** |
+  | **generate_shipment_label** | **Generate or retrieve the shipping label (PDF).** |
+  | **order_cancel** | **Cancel a created order before it is shipped.** |
+  | **list_pickup_addresses** | **Retrieve a list of pickup addresses configured for the seller account.** |
+
+  #### **Use cases :**
+
+  ##### **Use Case 1: Get Shipping Rates for a New Order**
+
+  **Goal:** You want to know how much it would cost to ship a parcel from Delhi to Bangalore.
+
+  **User Command (Natural Language):**
+
+  "How much does it cost to send a 1kg package from Delhi to Bangalore with COD?"
+
+  **Behind the scenes (Tool Used):**
+
+  - 
+
+  **Tool:** **`shipping_rate_calculator`**
+
+  - 
+
+  **Inputs:**
+
+    - 
+
+  **Pickup Pincode: 110001 (Delhi)**
+
+    - 
+
+  **Delivery Pincode: 560001 (Bangalore)**
+
+    - 
+
+  **Weight: 1kg**
+
+    - 
+
+  **COD: Yes**
+
+  **AI Response (Simplified Output):**
+
+  You have 3 courier options:
+
+  - 
+
+  **Delhivery Express: ₹85, Delivery in 2 days**
+
+  - 
+
+  **Bluedart: ₹110, Delivery in 1 day**
+
+  - 
+
+  **Xpressbees: ₹90, Delivery in 3 days**
+
+  COD available with all options.
+
+  This allows the user to choose the best courier based on cost and speed, all without logging into a dashboard.
+
+  ##### Use Case 2: Create and Ship an Order
+
+  **Goal:** You’ve received an order on your website and now want to ship it via Shiprocket.
+
+  **User Command:**
+
+  "Create a shipment for a 2kg item from Mumbai to Pune. COD ₹999. Customer name is Ramesh, phone is 9876543210."
+
+  **Behind the scenes (Tool Used):**
+
+  - 
+
+  **Tool:** `order_create`
+
+  - 
+
+  **Inputs:**
+
+    - 
+
+  **Pickup Address: Mumbai (400001)**
+
+    - 
+
+  **Delivery Address: Pune (411001)**
+
+    - 
+
+  **Weight: 2kg**
+
+    - 
+
+  **COD Amount: ₹999**
+
+    - 
+
+  **Customer: Ramesh, 9876543210**
+
+  **AI Response:**
+
+  New Order created successfully with Shiprocket Order ID: SR123456.
+
+  **Next Command (User):**
+
+  "Ship the order using the fastest courier."
+
+  **Behind the scenes:**
+
+  - 
+
+  **Tool:** **`order_ship`**
+
+  - 
+
+  **Logic: Auto-select fastest courier based on shipping_rate_calculator**
+
+  - 
+
+  **Result: Courier assigned, AWB generated.**
+
+  **AI Response:**
+
+  Shipped via Delhivery. AWB Number: DLV987654321
+
+  ##### **Use Case 3: Schedule Pickup and Download Label**
+
+  **Goal:** You’ve created an order and want to schedule a pickup and download the label.
+
+  **User Command:**
+
+  "Schedule a pickup for Order SR123456 for tomorrow."
+
+  **Tool Used:** **`order_pickup_schedule`**
+
+  - 
+
+  **Inputs:**
+
+    - 
+
+  **Order ID: SR123456**
+
+    - 
+
+  **Date: Tomorrow**
+
+    - 
+
+  **Pickup Slot: Default (morning/afternoon)**
+
+  **AI Response:**
+
+  Pickup scheduled for 24 July, 10 AM to 1 PM.
+
+  **Next Command:**
+
+  "Download the shipping label for Order SR123456."
+
+  **Tool Used:** **`generate_shipment_label`**
+
+  AI Response:
+
+  Here’s your label (PDF): **Download Label**
+
+  You can now print the label and attach it to the package—done!
+
+  ### Get Started
+
+  ##### Setup:
+
+  **Prerequisites:**
+
+  - 
+
+  **Node.js v22.14.0 or higher (but < v23)**
+
+  - 
+
+  **Claude Desktop or Cursor app for integrating MCP servers.**
+
+  #### **Installation & Setup**
+
+  **Clone the Repository**
+
+  ```
+  `git clone https://github.com/bfrs/shiprocket-mcp.git
+  cd shiprocket-mcp
+
+  `
+  ```
+
+  **1. Install Dependencies**
+
+  ```
+  `npm install
+  npm run build
+
+  `
+  ```
+
+  **2. Configure AI Client Integration**
+
+  Add your credentials in your client’s MCP config file:
+
+  ```
+  `{
+    "mcpServers": {
+      "shiprocket": {
+        "command": "npm",
+        "args": ["--prefix", "{{PATH_TO_SRC}}", "start", "--silent"],
+        "env": {
+          "SELLER_EMAIL": "<Your Shiprocket Email>",
+          "SELLER_PASSWORD": "<Your Shiprocket Password>"
+        }
+      }
+    }
+  }
+
+  `
+  ```
+
+  **Claude: save as ~/Library/Application Support/Claude/claude_desktop_config.json**
+
+  **Cursor: save as ~/.cursor/mcp.json**[](https://github.com/bfrs/shiprocket-mcp?utm_source=chatgpt.com)
+
+  **3. Run & Use**
+
+  Open/restart Claude or Cursor. You’ll see “Shiprocket” as an available MCP integration.
+
+  #### **Architecture Overview**
+
+  - 
+
+  **MCP Protocol via STDIO: Communicates with AI clients using standard I/O streams**
+
+  - 
+
+  **Core Components:**
+
+    - 
+
+  **HTTP Client: Authenticates with Shiprocket using email/password to fetch a bearer token.**
+
+    - 
+
+  **Tool Mapper: Receives MCP calls → runs validation → dispatches to Shiprocket’s REST endpoints.**
+
+    - 
+
+  **Error Handling: Wraps API calls with structured responses to AI clients.**
+
+  - 
+
+  **Code Layout:**
+
+    - 
+
+  **src/transports/stdio.ts: MCP–stdio handler**
+
+    - 
+
+  **src/mcp/tools.ts: Tool definitions and parameter schemas**
+
+    - 
+
+  **src/mcp/connections.ts: Authentication/session management**
+
+    - 
+
+  **src/main.ts: Entry point to initialize server**   [** **](https://deepwiki.com/bfrs/shiprocket-mcp?utm_source=chatgpt.com)
+}

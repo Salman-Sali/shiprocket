@@ -1,0 +1,22 @@
+meta {
+  name: Get Locality Details
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/v1/external/open/postcode/details
+  body: none
+  auth: inherit
+}
+
+docs {
+  Use this API to get further locality details of any given postcode.
+  Just pass the valid locality Pincode, and the details will be displayed in JSON format.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `postcode` | YES | _integer_ | The Pincode you want to get the locality details. | 110077 |
+}

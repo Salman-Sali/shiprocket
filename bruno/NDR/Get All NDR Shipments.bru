@@ -1,0 +1,27 @@
+meta {
+  name: Get All NDR Shipments
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/ndr/all
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API call will display a list of all the shipments that are in NDR in your Shiprocket account. 
+
+  You can also sort and filter the data according to your needs by passing the optional parameters. Not passing anything will display the data in the default format.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `page` | NO | _integer_ | The page number to display. | 5 |
+  | `per_page` | NO | _integer_ | The number of entries per page. | 5 |
+  | `to` | NO | _string_ | The end date. | 2021-08-02 |
+  | `from` | NO | _string_ | The start date. | 2021-08-02 |
+  | `search` | NO | _string_ | Search for AWB. | 224477 |
+}

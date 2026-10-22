@@ -1,0 +1,103 @@
+meta {
+  name: Update order
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/v1/external/international/orders/update/adhoc
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+     "order_id":1726470481,
+     "isd_code":"+1",
+     "billing_isd_code":"",
+     "order_date":"2022-03-30T00:34:12.311Z",
+     "channel_id":2252386,
+     "billing_customer_name":"Elena  ",
+     "billing_last_name":"",
+     "billing_address":"Plot No. 348, 134113, India",
+     "billing_address_2":"",
+     "billing_city":"Panchkula",
+     "billing_state":"Haryana",
+     "billing_country":"India",
+     "billing_pincode":"134113",
+     "billing_email":"test.test@shiprocket.com",
+     "billing_phone":9760858933,
+     "landmark":"",
+     "shipping_is_billing":1,
+     "shipping_customer_name":"Elena ",
+     "shipping_last_name":"",
+     "shipping_address":"Plot 1, Panchkula, Haryana 134113, India",
+     "shipping_address_2":"",
+     "shipping_city":"Dallas",
+     "order_type":1,
+     "shipping_country":"United States",
+     "shipping_pincode":"134090",
+     "shipping_state":"Texas",
+     "shipping_email":"test.test@shiprocket.com",
+     "product_category":"",
+     "shipping_phone":9760853722,
+     "billing_alternate_phone":"",
+     "order_items":[
+        {
+           "name":"Combo of 4 Way Spanner and Hydraulic trolly Jack",
+           "sku":"5-47606",
+           "category_name":"Default Category",
+           "tax":"",
+           "hsn":"",
+           "units":"1",
+           "selling_price":"100",
+           "discount":"",
+           "category_id":"",
+           "caetgroy_code":""
+        }
+     ],
+     "payment_method":"Prepaid",
+     "shipping_charges":0,
+     "giftwrap_charges":0,
+     "transaction_charges":0,
+     "total_discount":0,
+     "sub_total":100,
+     "weight":0.51,
+     "length":20,
+     "breadth":20,
+     "height":20,
+     "pickup_location_id":255,
+     "reseller_name":"",
+     "company_name":"",
+     "ewaybill_no":"",
+     "customer_gstin":"",
+     "is_order_revamp":1,
+     "is_document":0,
+     "delivery_challan":false,
+     "order_tag":"",
+     "purpose_of_shipment":0,
+     "currency":"EUR",
+     "reasonOfExport":2,
+     "commodity":"true",
+     "mies":"true",
+     "igstPaymentStatus":"C",
+     "Terms_Of_Invoice":"FOB",
+     "is_insurance_opt":false
+  }
+}
+
+docs {
+  Use this API to update your orders. You have to pass all the required params at the minimum to create a quick custom order. You can add additional parameters as per your preference.
+
+  You can update only the order_items details before assigning the AWB (before Ready to Ship status). You can only update these key-value pairs i.e increase/decrease the quantity, update tax/discount, add/remove product items. Some params specific to international order are.
+
+  | PARAMS | REQUIRED | DATA TYPE | DESCRIPTION | EXAMPLE |
+  |---|---|---|---|---|
+  | purpose_of_shipment | NO | interger | The purpose of the shipment. values are 0 - gift, 1- sample, commercial - 2. | 1 |
+  | currency | YES | string | The currency of the order. Possible values are INR,USD,GBP, EUR, AUD, CAD, SAR, AED,SGD | USD |
+  | reasonOfExport | No | integer | The reason for the export. Possible values are 0 - BONAFIDE_SAMPLE, 1 - SAMPLE, 2 - GIFT, 3 - COMMERCIAL | 2 |
+  | commodity | NO | boolean | Indicates if the order is a commodity or not | true |
+  | mies | No | boolean |  | true |
+  | igstPaymentStatus | YES | char | possible values are 'A'- not applicable, 'B'- LUT or Export under Bond, 'C'- Export Against Payment of IGST | A |
+  | Terms_Of_Invoice | no | string | The term of invoice either FOB and CIF | FOB |
+}

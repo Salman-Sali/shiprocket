@@ -1,0 +1,27 @@
+meta {
+  name: Get Inventory Details
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/inventory
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API can be used to check the inventory details of a product sku.
+  There are no required parameters for this API, but additional parameters can be used to sort and filter the data. 
+
+  In case no filter conditions are passed, the details are displayed in the default JSON format.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `page` | NO | _integer_ | The page number to be displayed. | 4 |
+  | `per_page` | NO | _integer_ | The total products you want to diplay in each page. | 2 |
+  | `sort` | NO | _string_ | Sort conditions if any. Value: ASC or DESC | ASC |
+  | `sort_by` | NO | _integer_ | Allows you to choose the field by which the data will be sorted. Could be sorted by id, by sku, time created etc. | sku |
+}

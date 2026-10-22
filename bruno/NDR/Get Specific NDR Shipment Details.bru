@@ -1,0 +1,27 @@
+meta {
+  name: Get Specific NDR Shipment Details
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/external/ndr/:AWB
+  body: none
+  auth: inherit
+}
+
+params:path {
+  AWB: 
+}
+
+docs {
+  Get the shipment details of a particular order through this API by passing the AWB number in the endpoint URL itself. You can get the details like AWB, NDR Attempt, NDR Reason, Customer Details, Product Details, Courier.
+
+  Type in your AWB code in place of {AWB}. No other body parameters are required.
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/ndr/94711332](https://apiv2.shiprocket.in/v1/external/ndr/94711332) |
+}

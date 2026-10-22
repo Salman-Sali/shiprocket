@@ -1,0 +1,29 @@
+meta {
+  name: Cancel a Shipment
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/cancel/shipment/awbs
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+  "awbs": ["19041211125783"]
+  }
+}
+
+docs {
+  Use this API to cancel a created shipment before the "Out for Pickup" state. Multiple AWBs can be passed together as an array to cancel them simultaneously.
+
+  **Limit: 2000 AWBs**
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `awbs` | YES | _string_ | The AWB/List of AWBs that need to be canceled. | 19041211125783 |
+}

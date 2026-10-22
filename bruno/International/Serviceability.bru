@@ -1,0 +1,33 @@
+meta {
+  name: Serviceability
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/v1/external/international/courier/serviceability?order_id=247825513
+  body: none
+  auth: inherit
+}
+
+params:query {
+  order_id: 247825513
+}
+
+docs {
+  This API checks courier serviceability for international orders and displays them as a list.
+
+  **Notes:**
+
+  - 'cod' field must be 0 as COD is not available for international orders.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `weight` | YES | _integer_ | The weight of the shipment. | 10 |
+  | `cod` | YES | _integer_ | Cash on delivery status. Must be 0. | 0 |
+  | `delivery_country` | YES | _string_ | The destination country ISO Alpha 2 code. | US |
+  | `order_id` | NO | _integer_ | The Shiprocket order_id of the shipment if available. | 1 |
+  | `pickup_postcode` | NO | _integer_ | Use this field to select a different pickup postcode other than the primary pickup address. | 2 |
+}

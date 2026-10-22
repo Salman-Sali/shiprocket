@@ -1,0 +1,43 @@
+meta {
+  name: Check Courier Serviceability
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/v1/external/courier/serviceability/
+  body: none
+  auth: inherit
+}
+
+docs {
+  Use this API to check the availability of couriers between the pickup and delivery postal codes.
+  Further details like the estimated time of delivery, the rates along with the ids are also shown.
+
+  **Note:**
+
+  - 
+
+  One of either the 'order_id' or 'cod' and 'weight' is required. If you specify the order id, the cod and weight fields are not required and vice versa.
+
+  - 
+
+  You can add further fields to add the shipment details and filter the search.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `pickup_postcode` | YES | _integer_ | The shipment id of the order you want to create the AWB of. | 16016920 |
+  | `delivery_postcode` | YES | _integer_ | The courier id of the courier service you want to select. The default courier is selected in case no id is specified. | 10 |
+  | `order_id` | CONDITIONAL YES | _integer_ | Use this to change the courier of a shipment. Value: reassign Note that this can be done only once in 24 hours. | reassign |
+  | `cod` | CONDITIONAL YES | _boolean_ | 1 for Cash on Delivery and 0 for Prepaid orders. | 1 |
+  | `weight` | CONDITIONAL YES | _string_ | The weight of shipment in kgs. | 2 |
+  | `length` | NO | _integer_ | The length of the shipment in cms. | 15 |
+  | `breadth` | NO | _integer_ | The breadth of the shipment in cms. | 10 |
+  | `height` | NO | _integer_ | The height of the shipment in cms. | 5 |
+  | `declared_value` | NO | _integer_ | The price of the order shipment rupee. | 50 |
+  | `mode` | NO | _string_ | The mode of travel. Either: Surface or Air | Air |
+  | `is_return` | YES | _integer_ | Whether the order is return order or not. 1 in case of Yes and 0 for No | 1 |
+  | `qc_check` | NO | _integer_ | Filter out QC couriers from the serviceability list | 1 |
+}

@@ -1,0 +1,56 @@
+meta {
+  name: Upload Blocked Pincodes
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{serviceabilityBaseUrl}}/v1/external/blocked-pincodes/upload
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {"postcode": {"delivery_blocked": ["110001", "560034"]}, "action": "block"}
+}
+
+docs {
+  Adds pincodes to the seller's delivery‑block list, or removes them.
+
+  The `block` action runs **per‑pincode classification** — valid entries are saved, invalid or duplicate entries are recorded in **Activity Logs** as a downloadable CSV instead of failing the whole request. The `unblock` action is **all‑or‑nothing**: the first invalid pincode aborts the call.
+
+  ##### Authentication
+
+  Pass the bearer token via header or query parameter:
+
+  | Method | Where | Example |
+  |---|---|---|
+  | Header (standard) | `Authorization` | `Authorization: {{vault:bearer-token}}` |
+  | Query parameter | `?token=` |  |
+
+  ##### Request Body Parameters
+
+  | Field | Type | Required | Description |
+  |---|---|---|---|
+  | `postcode` | object | Yes | Container for the `delivery_blocked` array. |
+  | `postcode.delivery_blocked` | string[] | Yes | Pincodes to add to / remove from the delivery block list. |
+  | `action` | string | Yes | `"block"` or `"unblock"`. Trimmed and lowercased server‑side. |
+
+  ##### Notes
+
+  - 
+
+  **Idempotency** — `block` is naturally idempotent. `unblock` is similarly idempotent for already‑removed pincodes.
+
+  - 
+
+  **Request size cap** — 1 MiB.
+
+  - 
+
+  **Unblock does not write to Activity Logs** — only `block` produces a per‑pincode result CSV; `unblock` surfaces the first malformed entry inline in the response.
+
+  - 
+
+  **Timestamps** — stored in IST (`Asia/Kolkata`).
+}

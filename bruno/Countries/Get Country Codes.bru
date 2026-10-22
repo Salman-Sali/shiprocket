@@ -1,0 +1,19 @@
+meta {
+  name: Get Country Codes
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/countries
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API lists all the countries present in the Shiprocket database and the respective country ids, ISO 2 and ISO 3 codes.
+
+  There are a total of 44 available countries in the database. You can use these codes to check the serviceability and use them in your dropdown menu.
+
+  No parameters are required to access this API.
+}

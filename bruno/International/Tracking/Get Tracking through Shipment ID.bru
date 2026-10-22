@@ -1,0 +1,28 @@
+meta {
+  name: Get Tracking through Shipment ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/external/courier/track/shipment/:shipment_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  shipment_id: 
+}
+
+docs {
+  Get the tracking details of your shipment by entering the shipment_id of the same in the endpoint URL.
+  No other body parameters are required to access this API.
+
+  The response is displayed in JSON format.
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/courier/track/shipment/16104408](https://apiv2.shiprocket.in/v1/external/courier/track/shipment/16104408) |
+}

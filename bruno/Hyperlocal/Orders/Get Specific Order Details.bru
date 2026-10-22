@@ -1,0 +1,35 @@
+meta {
+  name: Get Specific Order Details
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/v1/external/orders/show
+  body: none
+  auth: inherit
+}
+
+docs {
+  Get the order and shipment details of a particular order through this API by passing the Shiprocket order_id in the endpoint URL itself — type in your order_id in place of {id}.
+
+  No other body parameters are required.
+
+  **Note:**
+
+  For SRF orders, you'll receive an extra parameter viz., fulfillment_status. This key will have four values:
+
+  - Ready to Pack, 
+
+  - Packed
+
+  - Added to Picklist
+
+  - Picked up
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/orders/show/16167171](https://apiv2.shiprocket.in/v1/external/orders/show/16167171) |
+}

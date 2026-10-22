@@ -1,0 +1,28 @@
+meta {
+  name: Get All Zones
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/v1/external/countries/show/:country_id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  country_id: 
+}
+
+docs {
+  Use this API to get a further list of all the available zones within a country, along with their ids and details.
+
+  The country ID must be passed as a path parameter to access this API.
+  No other body parameters are required.
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/countries/show/4](https://apiv2.shiprocket.in/v1/external/countries/show/4) |
+}

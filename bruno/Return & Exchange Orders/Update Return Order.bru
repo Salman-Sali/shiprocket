@@ -1,0 +1,39 @@
+meta {
+  name: Update Return Order
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/edit
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "order_id": "79596",
+    "action": ["product_details"],
+    "length":"11",
+    "breadth":"10",
+    "height":"10",
+    "return_warehouse_id":1072,
+    "weight":1.5
+  }
+}
+
+docs {
+  Use this API to update your return orders. Please specify the parameters based on the "action" key.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_id` | YES | _string_ | Your return order ID | R_1231234 |
+  | `action` | YES | _string_ | Pass array of action. Allowed actions: `1. product_details: Allows you to edit the weight and dimensions` `2. warehouse_address: Allows you to change the return address` | "action": ["product_details"] |
+  | `length` | CONDITIONAL YES | _float_ | The length of the item in cms. Must be more than 0.5 | 12 |
+  | `breadth` | CONDITIONAL YES | _float_ | The breadth of the item in cms. Must be more than 0.5 | 23 |
+  | `height` | CONDITIONAL YES | _float_ | The height of the item in cms. Must be more than 0.5 | 30 |
+  | `weight` | CONDITIONAL YES | _float_ | The weight of the item in kgs. Must be more than 0. | 10 |
+  | `return_warehouse_id` | CONDITIONAL YES | _integer_ | Id of pickup location | 213443 |
+}

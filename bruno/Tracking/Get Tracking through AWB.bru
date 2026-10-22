@@ -1,0 +1,28 @@
+meta {
+  name: Get Tracking through AWB
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/courier/track/awb/:awb_code
+  body: none
+  auth: inherit
+}
+
+params:path {
+  awb_code: 
+}
+
+docs {
+  Get the tracking details of your shipment by entering the AWB code of the same in the endpoint URL itself.
+  No other body parameters are required to access this API.
+
+  The response is displayed in JSON format.
+
+  ##### Path:
+
+  | **EXAMPLE** |
+  |---|
+  | [https://apiv2.shiprocket.in/v1/external/courier/track/awb/788830567028](https://apiv2.shiprocket.in/v1/external/courier/track/awb/788830567028) |
+}

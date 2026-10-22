@@ -1,0 +1,70 @@
+meta {
+  name: Update Order
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/v1/external/orders/update/adhoc
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "order_id": "4TestOrderOct28",
+    "order_date": "2024-10-28",
+    "pickup_location": "23659_7026",
+    "channel_id": "",
+    "comment": "Reseller: M/s Goku",
+    "billing_customer_name": "Naruto",
+    "billing_last_name": "Uzumaki",
+    "billing_address": "House 221B, Leaf Village",
+    "billing_address_2": "Near Hokage House",
+    "billing_city": "New Delhi",
+    "billing_pincode": "110002",
+    "billing_state": "Delhi",
+    "billing_country": "India",
+    "billing_email": "naruto@uzumaki.com",
+    "billing_phone": "9876543210",
+    "shipping_is_billing": true,
+    "shipping_customer_name": "",
+    "shipping_last_name": "",
+    "shipping_address": "",
+    "shipping_address_2": "",
+    "shipping_city": "",
+    "shipping_pincode": "",
+    "shipping_country": "",
+    "shipping_state": "",
+    "shipping_email": "",
+    "shipping_phone": "",
+    "is_document":"0",
+    "order_items": [
+      {
+        "name": "Agreement",
+        "sku": "chakra123",
+        "units": 1,
+        "selling_price": "900",
+        "discount": "",
+        "tax": "",
+        "hsn": 441122
+      }
+    ],
+    "payment_method": "Prepaid",
+    "shipping_charges": 0,
+    "giftwrap_charges": 0,
+    "transaction_charges": 0,
+    "total_discount": 0,
+    "sub_total": 9000,
+    "length": 10,
+    "breadth": 15,
+    "height": 20,
+    "weight": 2.5
+  }
+}
+
+docs {
+  Use this API to update your orders. You have to pass all the required params at the minimum to create a quick custom order. You can add additional parameters as per your preference.
+
+  You can update only the order_items details before assigning the AWB (before Ready to Ship status). You can only update these key-value pairs i.e., increase/decrease the quantity, update tax/discount, add/remove product items. We've also enabled changing the nature of the order from a non-document to a document. You jus t need to pass the is_document key with the value of 1 in the payload.
+}

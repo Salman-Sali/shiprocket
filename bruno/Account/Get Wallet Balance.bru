@@ -1,0 +1,15 @@
+meta {
+  name: Get Wallet Balance
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/account/details/wallet-balance
+  body: none
+  auth: inherit
+}
+
+docs {
+  Use this API to get the Wallet balance details of your Shiprocket account. No parameters are required to access this API.
+}

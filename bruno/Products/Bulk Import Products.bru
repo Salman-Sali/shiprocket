@@ -1,0 +1,20 @@
+meta {
+  name: Bulk Import Products
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/v1/external/products/import
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  file: @file()
+}
+
+docs {
+  Use this API to import your products in bulk from a .csv file.
+  No parameters are required. Choose the target file as required. You will receive an import id upon successful import operation.
+}

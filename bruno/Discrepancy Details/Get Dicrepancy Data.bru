@@ -1,0 +1,18 @@
+meta {
+  name: Get Dicrepancy Data
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/billing/discrepancy
+  body: none
+  auth: inherit
+}
+
+docs {
+  Get the discrepancy data associated with your account, if any.
+  No parameters are required to use this API.
+
+  The data is displayed in JSON format.
+}

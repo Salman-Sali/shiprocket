@@ -1,0 +1,17 @@
+meta {
+  name: Get Sample .csv Format
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/v1/external/products/sample
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API will provide a sample format for a CSV file that can be used for importing orders. You can use this format to create your CSV file, which you want to use to import products into your Shiprocket account.
+
+  No additional parameters are required.
+}

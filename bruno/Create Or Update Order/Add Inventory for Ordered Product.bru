@@ -1,0 +1,44 @@
+meta {
+  name: Add Inventory for Ordered Product
+  type: http
+  seq: 7
+}
+
+patch {
+  url: {{baseUrl}}/v1/external/orders/fulfill
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "order_id": "",
+        "order_product_id": "",
+        "quantity": "",
+        "action": ""
+      }
+    ]
+  }
+}
+
+docs {
+  Use this API to add inventory for ordered products that are out of stock or low on quantity. You have to pass the order id and order product id. You can also specify the number of items.
+
+  **Notes:**
+
+  - Inventory sync of your account must be turned on to use this API.
+
+  - The order_id to be passed is the shiprocket order id.
+  If you don't know the product id, Use the 'Get Product Details' API to get details about all the existing products.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `order_id` | YES | _integer_ | The Shiprocket order_id specified to the order. | 16167171 |
+  | `order_product_id` | YES | _integer_ | The product id of the product to be added. | 17171717 |
+  | `quantity` | YES | _string_ | The number of items you want to add. | 10 |
+  | `action` | YES | _string_ | The action you want to carry out. Is 'add'. | add |
+}

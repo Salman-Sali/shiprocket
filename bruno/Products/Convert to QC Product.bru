@@ -1,0 +1,45 @@
+meta {
+  name: Convert to QC Product
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/v1/external/products/qc-product-update/:productID
+  body: json
+  auth: inherit
+}
+
+params:path {
+  productID: 
+}
+
+body:json {
+  {
+    "sku": "PROD12345",
+    "product_image": "https://kr-multichannel.s3.ap-southeast-1.amazonaws.com/2/products/images/1640350781_08d63a46-a0f1-4d6b-9eea-9e476fce7c4e1575377853407-HIGHLANDER-by-Rohit-Sharma-Men-White--Blue-Slim-Fit-Checked--1.j",
+    "brand_box": "12323chacha",
+    "brand": "blue",
+    "color": "Red",
+    "size": "M",
+    "serial_no": "",
+    "check_damaged_product": 0
+  }
+}
+
+docs {
+  Use this API to convert an existing product to a QC product. The {productID} will be the "id" from the "[Get all products](https://apidocs.shiprocket.in/#0b8d1f26-3abd-4f4e-9cd8-3928bcfcf30b)" or "[Get specific product details](https://apidocs.shiprocket.in/#134f7710-660c-464f-b579-6da46ba9402f)" API.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `sku` | YES | _string_ | Stock Keeping Unit or the identification unit of an individual product (generally alphanumeric). | bat123 |
+  | `product_image` | YES | _string_ | Pickup agent will cross check shared product color with the actual product received from the buyer. Mandatory for all QC Products | [https://abc/xyz.jpg](https://abc/xyz.jpg) |
+  | `serial_no` | NO | _string_ | A serial number (SN) is a unique alphanumeric value assigned to each individual product. | 12345 |
+  | `size` | NO | _string_ | Pickup agent will cross check shared product size with the size on the label/tag. | L |
+  | `color` | NO | _string_ | Pickup agent will cross check shared product color with the actual product received from the buyer. | Green |
+  | `brand` | NO | _integer_ | The pickup agent will cross-check the provided brand name visible on the item(s) or its packaging. | shiprocket |
+  | `brand_box` | NO | _string_ | The pickup agent will cross-check the provided brand name, which should match the brand tag affixed to the item(s) upon delivery | shiprocket |
+  | `product_imei` | NO | _string_ | "It is a 15-digit unique number. It is displayed on the screen, on the box, or at the back of the appliance. This can be used to check production & guarantee of the appliance. | 1234567890 |
+}

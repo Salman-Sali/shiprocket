@@ -1,0 +1,33 @@
+meta {
+  name: Manifest Generation
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/v1/external/international/manifests/generate
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "shipment_id": [12345]
+  }
+}
+
+docs {
+  Use this API to create a pickup request for your order shipment. The API returns the pickup status along with the estimated pickup time.
+  You will have to call the 'Generate Manifest' API after the successful response of this API.
+
+  **Note:**
+
+  - The AWB must be already generated for the shipment id to generate the pickup request.
+
+  - Only one shipment_id can be passed at a time.
+
+  | PARAMS | REQUIRED | DATA TYPE | DESCRIPTION | EXAMPLE |
+  |---|---|---|---|---|
+  | shipment_id | yes | integer | The shipment id of the shipment which is requested for pickup. | 1603434 |
+  | status | no | string | Use this field to retry if the pickup request fails. Value: retry | retry |
+}

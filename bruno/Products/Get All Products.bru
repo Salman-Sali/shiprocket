@@ -1,0 +1,28 @@
+meta {
+  name: Get All Products
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/v1/external/products
+  body: none
+  auth: inherit
+}
+
+docs {
+  This API can be used to display a detailed list of all the products that you have in your Shiprocket account.
+
+  There are no required parameters to access this API. However, the displayed result can be filtered or sorted using additional parameters.
+
+  ##### Parameters:
+
+  | **PARAMS** | **REQUIRED** | **DATA TYPE** | **DESCRIPTION** | **EXAMPLE** |
+  |---|---|---|---|---|
+  | `page` | NO | _integer_ | The page number you want to display. | 5 |
+  | `per_page` | NO | _integer_ | The number of products to get per page. | 2 |
+  | `sort` | NO | _string_ | The order to sort by. Value: _ASC_ or _DESC_ | ASC |
+  | ` sort_by` | NO | _string_ | Allows you to choose the value field by which the items will be sorted. Could be sorted by id, by sku, time created etc. | sku |
+  | `filter` | NO | _string_ | The data to be matched for the filter value. | 11223344 |
+  | `filter_by` | NO | _string_ | The filter value field . Can be id, sku, etc. | id |
+}
