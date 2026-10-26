@@ -99,6 +99,32 @@ Each group is reached through an accessor on the client:
 | `imports()` | result of bulk CSV imports |
 | `international()` | KYC, bank details, orders, serviceability, AWB, manifest, pickup, tracking |
 
+### Webhooks
+
+`shiprocket::webhook` decodes the tracking webhook body and checks the optional `x-api-key`
+security token in constant time. It takes the raw header value and body, so it works with any
+HTTP framework:
+
+```rust
+use shiprocket::webhook::{ShipmentStatus, TrackingWebhook, verify_api_key};
+
+fn handle(api_key: Option<&str>, body: &[u8]) -> Result<(), &'static str> {
+    if !verify_api_key(api_key, "token-configured-in-shiprocket") {
+        return Err("bad token");
+    }
+    let event = TrackingWebhook::from_slice(body).map_err(|_| "bad body")?;
+    match event.status() {
+        Some(ShipmentStatus::Delivered) => { /* mark the order delivered */ }
+        Some(ShipmentStatus::Unknown(code)) => { /* log `code` */ }
+        _ => {}
+    }
+    Ok(())
+}
+```
+
+Shiprocket only publishes a sample body, so every field is optional and unknown fields are kept
+in `extra`. Answer the webhook with `200`.
+
 ### Tokens
 
 ```rust,no_run

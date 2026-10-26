@@ -23,6 +23,7 @@ pub mod products;
 pub mod returns;
 pub mod shipments;
 pub mod tracking;
+pub mod webhook;
 pub mod wrapper;
 
 pub use client::{
