@@ -60,7 +60,7 @@ pub struct PickupLocations {
     pub is_blackbox_seller: Option<bool>,
     #[serde(default, deserialize_with = "de::opt_string")]
     pub company_name: Option<String>,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "de::vec")]
     pub recent_addresses: Vec<serde_json::Value>,
     #[serde(flatten)]
     pub extra: serde_json::Map<String, serde_json::Value>,
@@ -162,5 +162,27 @@ impl Pickup<'_> {
         self.client
             .post(self.client.api_url("settings/company/addpickup"), req)
             .await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn recent_addresses_tolerates_null_and_object() {
+        for recent in ["null", "{}", "[]", r#"[{"id":1}]"#] {
+            let body = format!(
+                r#"{{"data":{{"shipping_address":[{{"id":7,"pickup_location":"Home","is_primary_location":1}}],"allow_more":"true","company_name":"CASA MODERNA","recent_addresses":{recent}}}}}"#
+            );
+            let res: DataResponse<PickupLocations> = serde_json::from_str(&body).unwrap();
+            let data = res.data.expect("data must decode");
+            assert_eq!(data.shipping_address[0].id, Some(7));
+            assert_eq!(data.allow_more, Some(true));
+            assert_eq!(
+                data.recent_addresses.len(),
+                usize::from(recent.contains("id"))
+            );
+        }
     }
 }

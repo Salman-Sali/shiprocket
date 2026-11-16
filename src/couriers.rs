@@ -39,18 +39,44 @@ pub struct AssignAwbRequest {
 /// Response of `POST courier/assign/awb`.
 ///
 /// Hyperlocal shipments get `{"success": true, "message": "..."}` instead of the AWB data.
+///
+/// A failed assignment can come back with HTTP 200: check `awb_assign_status`, then read
+/// `response.data.awb_assign_error` and `message` (or use [`AssignAwbResponse::error_message`]).
 #[derive(Debug, Clone, Default, Deserialize)]
 pub struct AssignAwbResponse {
+    /// `1` on success, `0` on failure.
     #[serde(default, deserialize_with = "de::opt_i64")]
     pub awb_assign_status: Option<i64>,
     #[serde(default, deserialize_with = "de::opt_struct")]
     pub response: Option<AssignAwbResponseBody>,
     #[serde(default, deserialize_with = "de::opt_bool")]
     pub success: Option<bool>,
+    /// Top-level text: a progress note for hyperlocal shipments, the reason when a failure
+    /// is reported without `response.data`.
     #[serde(default, deserialize_with = "de::opt_string")]
     pub message: Option<String>,
     #[serde(flatten)]
     pub extra: serde_json::Map<String, serde_json::Value>,
+}
+
+impl AssignAwbResponse {
+    /// Error text of a failed assignment that Shiprocket answered with HTTP 200:
+    /// `response.data.awb_assign_error`, else the top-level `message` unless the response
+    /// reports success (`awb_assign_status` of `1` or `success` of `true`).
+    pub fn error_message(&self) -> Option<&str> {
+        let data_error = self
+            .response
+            .as_ref()
+            .and_then(|r| r.data.as_ref())
+            .and_then(|d| d.awb_assign_error.as_deref());
+        if data_error.is_some() {
+            return data_error;
+        }
+        if self.awb_assign_status == Some(1) || self.success == Some(true) {
+            return None;
+        }
+        self.message.as_deref()
+    }
 }
 
 #[derive(Debug, Clone, Default, Deserialize)]
@@ -101,6 +127,9 @@ pub struct AwbAssignment {
     pub transporter_name: Option<String>,
     #[serde(default, deserialize_with = "de::opt_struct")]
     pub shipped_by: Option<ShippedBy>,
+    /// Set when the assignment failed (`awb_assign_status` is `0`); the other fields are then absent.
+    #[serde(default, deserialize_with = "de::opt_string")]
+    pub awb_assign_error: Option<String>,
     #[serde(flatten)]
     pub extra: serde_json::Map<String, serde_json::Value>,
 }
@@ -750,6 +779,31 @@ mod tests {
             serde_json::from_str(r#"{"success":true,"message":"We are processing your request"}"#)
                 .unwrap();
         assert_eq!(r.success, Some(true));
+        assert_eq!(r.error_message(), None);
+    }
+
+    #[test]
+    fn assign_awb_failure_with_http_200() {
+        let r: AssignAwbResponse = serde_json::from_str(
+            r#"{"awb_assign_status":0,"response":{"data":{"awb_assign_error":"Awb Assignment Failed"}}}"#,
+        )
+        .unwrap();
+        assert_eq!(r.awb_assign_status, Some(0));
+        assert_eq!(r.error_message(), Some("Awb Assignment Failed"));
+        let d = r.response.unwrap().data.unwrap();
+        assert_eq!(d.awb_assign_error.as_deref(), Some("Awb Assignment Failed"));
+        assert_eq!(d.awb_code, None);
+
+        let r: AssignAwbResponse = serde_json::from_str(
+            r#"{"message":"Oops! Cannot reassign courier for this shipment.","status_code":400}"#,
+        )
+        .unwrap();
+        assert_eq!(
+            r.message.as_deref(),
+            Some("Oops! Cannot reassign courier for this shipment.")
+        );
+        assert_eq!(r.error_message(), r.message.as_deref());
+        assert!(r.extra.contains_key("status_code"));
     }
 
     #[test]
